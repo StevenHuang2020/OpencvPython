@@ -30,14 +30,6 @@ class ImageBase:
 
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-        
-        # key = cv2.waitKey(0)
-        # #print(key,key & 0xff)
-        # if  key & 0xff == 27: #27:ESC   ord('q')
-        #     cv2.destroyAllWindows()
-        # else:
-        #     #print(key)
-        #     pass
         return
 
     def plotImg(self):
@@ -55,13 +47,13 @@ class ImageBase:
 
         minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(hist)
         histImg = np.zeros([256,256,3], np.uint8) #[256,256,3] [256,256]
-        hpt = int(0.9* 256);
+        hpt = int(0.9* 256)
 
         for h in range(256):
             intensity = int(hist[h]*hpt/maxVal)
             #print(h,intensity)
             cv2.line(histImg,(h,256), (h,256-intensity), color)
-        return histImg;
+        return histImg
 
     """----------operation------start----------"""
     def binaryImage(self,thresHMin=None,thresHMax=None):
@@ -76,14 +68,21 @@ class ImageBase:
 
         return newImage
     
-    def thresHoldImage(self,mode=cv2.THRESH_BINARY):
+    def thresHoldImage(self,thres=127,mode=cv2.THRESH_BINARY):
         newImage = self.image.copy()
         #cv2.THRESH_BINARY
         #cv2.THRESH_BINARY_INV
         #cv2.THRESH_TRUNC
         #cv2.THRESH_TOZERO_INV
-        ret,thresh = cv2.threshold(newImage,127,255,mode)
+        ret,thresh = cv2.threshold(newImage,thres,255,mode)
         return thresh
+
+    def equalizedHist(self,img=None):
+        if img.all() == None:
+            return cv2.equalizeHist(self.image.copy())
+        else:
+            return cv2.equalizeHist(img.copy())
+            
 
     """----------operation------end------------"""
 
