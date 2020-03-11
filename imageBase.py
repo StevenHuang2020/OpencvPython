@@ -9,6 +9,11 @@ class ImageBase:
         cv2.useOptimized()
         self.file = file
         self.image = self.loadImg(file,mode)
+
+        """#change b g r channel order avoid color not correct when plot"""
+        if mode == cv2.IMREAD_COLOR:  
+            b,g,r = cv2.split(self.image)       # get b,g,r
+            self.image = cv2.merge([r,g,b])     # switch it to rgb
   
     def loadImg(self,filename,mode=cv2.IMREAD_COLOR):
         #mode = cv2.IMREAD_COLOR
@@ -20,6 +25,11 @@ class ImageBase:
     def infoImg(self,str='image:'):
         return(str,'shape:',self.image.shape,'size:',self.image.size,'dtype:','dims=',self.image.ndim,self.image.dtype)
     
+    def getImagChannel(self):
+        if self.image.ndim == 3: #color r g b channel
+            return 3
+        return 1  #only one channel
+
     def showimage(self,str='image',autoSize=False):
         flag = cv2.WINDOW_NORMAL
         if autoSize:
@@ -55,16 +65,24 @@ class ImageBase:
             cv2.line(histImg,(h,256), (h,256-intensity), color)
         return histImg
 
+    def equalizedHist(self,img=None):
+        if img.all() == None:
+            return cv2.equalizeHist(self.image.copy())
+        else:
+            return cv2.equalizeHist(img.copy())
+
     """----------operation------start----------"""
-    def binaryImage(self,thresHMin=None,thresHMax=None):
-        H, W = getImgHW()
+    def binaryImage(self,thresHMin=0,thresHMax=0):
+        """img must be gray"""
+        H, W = self.getImgHW()
         newImage = self.image.copy()
         for i in range(H):
             for j in range(W):
-                if newImage[i,j]<thresHMin:
+                #print(newImage[i,j])
+                if newImage[i,j] < thresHMin:
                     newImage[i,j] = 0
-                if newImage[i,j]>thresHMax:
-                    newImage[i,j] = 0
+                if newImage[i,j] > thresHMax:
+                    newImage[i,j] = 255
 
         return newImage
     
@@ -74,14 +92,23 @@ class ImageBase:
         #cv2.THRESH_BINARY_INV
         #cv2.THRESH_TRUNC
         #cv2.THRESH_TOZERO_INV
-        ret,thresh = cv2.threshold(newImage,thres,255,mode)
-        return thresh
-
-    def equalizedHist(self,img=None):
-        if img.all() == None:
-            return cv2.equalizeHist(self.image.copy())
-        else:
-            return cv2.equalizeHist(img.copy())
+        _, threshold = cv2.threshold(newImage,thres,255,mode)
+        return threshold
+    
+    def OtsuMethodThresHold(self):
+        newImage = self.image.copy()
+        _, threshold = cv2.threshold(newImage,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        # Otsu's thresholding after Gaussian filtering
+        #blur = cv2.GaussianBlur(img,(5,5),0)
+        #ret3,th3 = cv2.threshold(blur,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        return threshold
+        
+    def thresHoldModel(self,mode=cv2.ADAPTIVE_THRESH_MEAN_C):
+        newImage = self.image.copy()
+        #cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+        return cv2.adaptiveThreshold(newImage,255,mode,cv2.THRESH_BINARY,11,2)
+    
+    
             
 
     """----------operation------end------------"""

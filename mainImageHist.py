@@ -91,7 +91,7 @@ def showimage(img,str='image',autoSize=False):
     cv2.destroyAllWindows()
 
 def main():
-    file = './res/Lenna.png' #r'./res/obama.jpg'#
+    file = r'./res/obama.jpg'#'./res/Lenna.png' #
     img = ImageBase(file,mode=cv2.IMREAD_COLOR) # IMREAD_GRAYSCALE IMREAD_COLOR
     print(img.infoImg())
     #img.showimage(autoSize=False)
