@@ -4,14 +4,18 @@
 import matplotlib.pyplot as plt
 from common import getRowAndColumn
 
-def plotImagList(imgList,nameList):
+def plotImagList(imgList,nameList=None):
     nImg = len(imgList)
     nRow,nColumn = getRowAndColumn(nImg)
     
     for n in range(nImg):
         img = imgList[n]
         ax = plt.subplot(nRow, nColumn, n + 1)
-        ax.title.set_text(nameList[n])
+        if nameList:
+            ax.title.set_text(nameList[n])
+        else:
+            ax.title.set_text('')
+            
         plt.imshow(img)
 
     #plt.grid(True)
