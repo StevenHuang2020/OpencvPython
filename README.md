@@ -21,3 +21,5 @@ poolingImg.py
 <img src="images/poolingImg1.png" width="320" height="240">
 <img src="images/poolingImg2.png" width="320" height="240">
 <img src="images/poolingImg3.png" width="320" height="240">
+<img src="images/poilingRecurseMax1.png" width="320" height="240">
+<img src="images/poilingRecurseMean2.png" width="320" height="240">
