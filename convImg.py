@@ -29,6 +29,10 @@ def main():
                         [-1,4,-1],
                         [0,-1,0]])
 
+    k_Prewitt1 = np.array([[-1,0,1],
+                        [-1,0,1],
+                        [-1,0,1]])
+    k_Prewitt2 = k_Prewitt1.T
 
     conImg = convolutionImg(img,kernel)
     k_Robert1Img = convolutionImg(img,k_Robert1)
@@ -37,6 +41,9 @@ def main():
     k_Sobel1Img = convolutionImg(img,k_Sobel1)
     k_Sobel2Img = convolutionImg(img,k_Sobel2)
     k_LaplanceImg = convolutionImg(img,k_Laplance)
+
+    k_Prewitt1Img = convolutionImg(img,k_Prewitt1)
+    k_Prewitt2Img = convolutionImg(img,k_Prewitt2)
 
     imgList = []
     nameList = []
@@ -47,6 +54,8 @@ def main():
     imgList.append(k_Sobel1Img), nameList.append('k_Sobel1Img')
     imgList.append(k_Sobel2Img), nameList.append('k_Sobel2Img')
     imgList.append(k_LaplanceImg), nameList.append('k_LaplanceImg')
+    imgList.append(k_Prewitt1Img), nameList.append('k_Prewitt1Img')
+    imgList.append(k_Prewitt2Img), nameList.append('k_Prewitt2Img')
 
     plotImagList(imgList,nameList) 
     pass
