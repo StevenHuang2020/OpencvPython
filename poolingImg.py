@@ -25,14 +25,7 @@ def poolingImg(img,kernel,maxOrMean=True):
 
     return newImg
 
-def main():
-    file = './res/Lenna.png' #r'./res/obama.jpg'#
-    img = loadImg(file,mode=cv2.IMREAD_GRAYSCALE) # IMREAD_GRAYSCALE IMREAD_COLOR
-    img  = OtsuMethodThresHold(img) #binary image
-    
-    #kernel = np.ones((3,3), np.float32)
-    #poolImg = poolingImg(img,kernel)
-
+def pollingImgDiffKernel(img):
     imgList = []
     nameList = []
     imgList.append(img), nameList.append('Original')
@@ -44,6 +37,50 @@ def main():
         imgList.append(poolImg), nameList.append('poolingImg'+str(i))
 
     plotImagList(imgList,nameList,True) 
+
+def pollingImgRecurse(img):
+    imgList = []
+    nameList = []
+    imgList.append(img), nameList.append('Original')
+
+    k = 2
+    kernel = np.ones((k,k), np.float32)
+    maxOrMean=False
+
+    i=0
+    poolImg = poolingImg(img,kernel,maxOrMean)
+    imgList.append(poolImg), nameList.append('poolingImg'+str(i))
+    i+=1
+
+    poolImg = poolingImg(poolImg,kernel,maxOrMean)
+    imgList.append(poolImg), nameList.append('poolingImg'+str(i))
+    i+=1
+
+    poolImg = poolingImg(poolImg,kernel,maxOrMean)
+    imgList.append(poolImg), nameList.append('poolingImg'+str(i))
+    i+=1
+
+    poolImg = poolingImg(poolImg,kernel,maxOrMean)
+    imgList.append(poolImg), nameList.append('poolingImg'+str(i))
+    i+=1
+
+    poolImg = poolingImg(poolImg,kernel)
+    imgList.append(poolImg), nameList.append('poolingImg'+str(i))
+    i+=1
+
+    plotImagList(imgList,nameList,True) 
+
+
+def main():
+    file = r'./res/Lenna.png' #r'./res/obama.jpg'#
+    img = loadImg(file,mode=cv2.IMREAD_GRAYSCALE) # IMREAD_GRAYSCALE IMREAD_COLOR
+    img  = OtsuMethodThresHold(img) #binary image
+    
+    #kernel = np.ones((3,3), np.float32)
+    #poolImg = poolingImg(img,kernel)
+
+    #pollingImgDiffKernel(img)
+    pollingImgRecurse(img)
     pass
 
 if __name__=='__main__':
