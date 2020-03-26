@@ -15,3 +15,9 @@ imgProjection.py
 convImg.py
 <br/>
 <img src="images/convolutionImg.png" width="320" height="240">
+
+poolingImg.py
+<br/>
+<img src="images/poolingImg1.png" width="320" height="240">
+<img src="images/poolingImg2.png" width="320" height="240">
+<img src="images/poolingImg3.png" width="320" height="240">
