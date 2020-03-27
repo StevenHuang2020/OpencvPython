@@ -34,20 +34,6 @@ def mosaicImg(x,y,h,w,img): #all block random
         resImg[H*block_h:H*block_h+block_h, W*block_w:W*block_w+block_w] = roi[rH*block_h:rH*block_h+block_h, rW*block_w:rW*block_w+block_w]
     return resImg
 
-def randomBolckImg(img):
-    h,w = img.shape
-    resImg = img.copy()
-    
-    ag = np.arange(h*w)
-    np.random.shuffle(ag)
-    for i,blk in enumerate(ag):
-        H = int(np.floor(i / w))
-        W = int(i % w)
-        rH = int(np.floor(blk / w))
-        rW = int(blk % w)
-        resImg[H,W] = resImg[rH,rW]
-    return resImg
-
 def mosaicImg2(x,y,h,w,img): #random in block
     roi = img[y:y+h, x:x+w] #
     resImg = roi.copy()
@@ -70,6 +56,43 @@ def mosaicImg2(x,y,h,w,img): #random in block
         resImg[H*block_h:H*block_h+block_h, W*block_w:W*block_w+block_w] = res
     return resImg
 
+def randomBolckImg(img):
+    h,w = img.shape
+    resImg = img.copy()
+    
+    ag = np.arange(h*w)
+    np.random.shuffle(ag)
+    for i,blk in enumerate(ag):
+        H = int(np.floor(i / w))
+        W = int(i % w)
+        rH = int(np.floor(blk / w))
+        rW = int(blk % w)
+        resImg[H,W] = resImg[rH,rW]
+    return resImg
+
+def mosaicImg3(x,y,h,w,img): #all block random
+    roi = img[y:y+h, x:x+w]
+    resImg = roi.copy()
+    #block = np.zeros((5,6), np.float32)
+    #block = np.zeros((3,3), np.float32)
+    #block = np.zeros((9,12), np.float32)
+    block = np.zeros((15,12), np.float32)
+
+    block_h = block.shape[0]
+    block_w = block.shape[1]
+
+    len = int(h*w/(block_h*block_w))
+    for i in range(len):
+        H = int(np.floor(i / (w/block_w)))
+        W = int(i % (w/block_w))
+
+        value = np.mean(roi[H*block_h:H*block_h+block_h, W*block_w:W*block_w+block_w])
+        #value = np.max(roi[H*block_h:H*block_h+block_h, W*block_w:W*block_w+block_w])
+        #value = np.min(roi[H*block_h:H*block_h+block_h, W*block_w:W*block_w+block_w])
+
+        resImg[H*block_h:H*block_h+block_h, W*block_w:W*block_w+block_w] = value
+    return resImg
+
 def main():
     file = r'./res/Lenna.png' #r'./res/obama.jpg'#
     img = loadImg(file,mode=cv2.IMREAD_GRAYSCALE) # IMREAD_GRAYSCALE IMREAD_COLOR
@@ -79,8 +102,9 @@ def main():
 
     x,y = 242,245
     h,w = 45,120
-    mosaic = mosaicImg(x,y,h,w,img)
+    #mosaic = mosaicImg(x,y,h,w,img)
     #mosaic = mosaicImg2(x,y,h,w,img)
+    mosaic = mosaicImg3(x,y,h,w,img)
 
     imgList.append(img), nameList.append('Original')
 
