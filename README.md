@@ -31,6 +31,7 @@ mosaicImg.py
 <img src="images/mosaic2.png" width="320" height="240">
 
 ## artImg
+artImg using DNN parameters
 <br/>
 <img src="images/Lenna.png" width="320" height="240">
 <img src="images/a.png" width="320" height="240">
