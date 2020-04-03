@@ -2,7 +2,7 @@
 #Steven image threshold modoule
 import cv2.cv2 as cv2 #pip install opencv-python
 import matplotlib.pyplot as plt
-from imageBase import ImageBase
+from ImageBase import *
 from mainImagePlot import plotImagList
 
 def showimage(img,str='image',autoSize=False):
@@ -18,18 +18,18 @@ def showimage(img,str='image',autoSize=False):
 
 def main():
     file = './res/Lenna.png' #r'./res/obama.jpg'#
-    img = ImageBase(file,mode=cv2.IMREAD_GRAYSCALE) # IMREAD_GRAYSCALE IMREAD_COLOR
-    #print(img.infoImg())
-    img1 = img.binaryImage(thresHMin=50,thresHMax=150)
-    img2 = img.binaryImage(thresHMin=50,thresHMax=100)
-    img3 = img.thresHoldImage(mode = cv2.THRESH_BINARY)
-    img4 = img.OtsuMethodThresHold()
-    img5 = img.thresHoldModel(mode = cv2.ADAPTIVE_THRESH_MEAN_C)
-    img6 = img.thresHoldModel(mode = cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
+    img = loadImg(file,mode=cv2.IMREAD_GRAYSCALE) # IMREAD_GRAYSCALE IMREAD_COLOR
+    #print(infoImg())
+    img1 = binaryImage2(img,thresHMin=50,thresHMax=150)
+    img2 = binaryImage2(img,thresHMin=50,thresHMax=100)
+    img3 = thresHoldImage(img,mode = cv2.THRESH_BINARY)
+    img4 = OtsuMethodThresHold(img)
+    img5 = thresHoldModel(img,mode = cv2.ADAPTIVE_THRESH_MEAN_C)
+    img6 = thresHoldModel(img,mode = cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
 
     imgList = []
     nameList = []
-    imgList.append(img.image), nameList.append('Original')
+    imgList.append(img), nameList.append('Original')
     imgList.append(img1), nameList.append('thrHMin')
     imgList.append(img2), nameList.append('thrHMin')
     imgList.append(img3), nameList.append('thrImg_Binary')

@@ -4,6 +4,10 @@ import cv2.cv2 as cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
+def changeBgr2Rbg(img): #input color img
+    b,g,r = cv2.split(img)       # get b,g,r
+    img = cv2.merge([r,g,b])
+    return img
 
 def loadImg(file,mode=cv2.IMREAD_COLOR):
     #mode = cv2.IMREAD_COLOR cv2.IMREAD_GRAYSCALE cv2.IMREAD_UNCHANGED
@@ -111,6 +115,9 @@ def thresHoldModel(img,mode=cv2.ADAPTIVE_THRESH_MEAN_C):
     #cv2.ADAPTIVE_THRESH_GAUSSIAN_C
     return cv2.adaptiveThreshold(img,255,mode,cv2.THRESH_BINARY,11,2)
 
+def convolutionImg(img,kernel):
+    return cv2.filter2D(img,-1,kernel)
+    
 """-----------------------operation end---------"""
 
 
