@@ -57,7 +57,7 @@ def main():
     imgList.append(k_Prewitt1Img), nameList.append('k_Prewitt1Img')
     imgList.append(k_Prewitt2Img), nameList.append('k_Prewitt2Img')
 
-    plotImagList(imgList,nameList) 
+    plotImagList(imgList,nameList,True) 
     pass
 
 if __name__=='__main__':

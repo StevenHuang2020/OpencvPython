@@ -6,7 +6,7 @@ import cv2.cv2 as cv2
 import numpy as np
 
 from CascadeClassifier import CascadeClassifier
-from imageBase import ImageBase
+from ImageBase import*
 from mainImagePlot import plotImagList
 
 def main():
@@ -20,25 +20,26 @@ def main():
 
     cascPath=r'./res/haarcascade_frontalface_default.xml'
 
-    img = ImageBase(file,mode=cv2.IMREAD_COLOR) # IMREAD_GRAYSCALE IMREAD_COLOR
-
-    #print(img.infoImg())
+    img = loadImg(file,mode=cv2.IMREAD_COLOR) # IMREAD_GRAYSCALE IMREAD_COLOR
+    img = changeBgr2Rbg(img)
+    
     faceROI = CascadeClassifier(cascPath)
  
-    faceR=faceROI.getDetectImg(img.image)
-    face = faceROI.detecvFaceImgOne(img.image)
+    faceR=faceROI.getDetectImg(img)
+    face = faceROI.detecvFaceImgOne(img)
     faceGray = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
 
     ls = []
-    ls.append(img.image)
-    ls.append(faceR)
-    ls.append(face)
-    ls.append(faceGray)
+    names=[]
+    ls.append(img),names.append('Original')
+    ls.append(faceR),names.append('faceR')
+    ls.append(face),names.append('face')
+    ls.append(faceGray),names.append('faceGray')
 
-    plotImagList(ls)
+    plotImagList(ls,names)
 
-    #img.writeImg(face,'./res/myface_.png')
-    #img.writeImg(faceGray,'./res/myface_gray.png')
+    #writeImg(face,'./res/myface_.png')
+    #writeImg(faceGray,'./res/myface_gray.png')
 
 if __name__=="__main__":
     main()

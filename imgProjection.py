@@ -2,7 +2,7 @@
 #Steven projection black and whight grayscale image
 import cv2.cv2 as cv2
 import numpy as np
-from imageBase import *
+from ImageBase import *
 from mainImagePlot import plotImagList
 
 
@@ -33,7 +33,7 @@ def main():
     #plotImagList([img,imgGray,bImg])
     pHImg = projectionHorizonal(bImg)
     pVImg = projectionVertical(bImg)
-    plotImagList([img,imgGray,bImg,pHImg,pVImg])
+    plotImagList([img,imgGray,bImg,pHImg,pVImg],['Original','gray','bimage','hProject','vProject'])
     #plotImagList([img,imgGray,bImg,pHImg])
 
 if __name__=="__main__":

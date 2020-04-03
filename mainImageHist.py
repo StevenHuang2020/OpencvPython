@@ -3,7 +3,7 @@
 import cv2.cv2 as cv2 #pip install opencv-python
 import matplotlib.pyplot as plt
 
-from imageBase import ImageBase
+from ImageBase import *
 from matplotHist import plotHistImg, getImgHist, getImgHist256Img
 
 def plotImagHistListImgHist256(imgList):

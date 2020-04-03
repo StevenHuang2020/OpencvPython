@@ -36,7 +36,7 @@ def main():
     imgList.append(img4), nameList.append('OtsuMethod')
     imgList.append(img5), nameList.append('thr_Mean')
     imgList.append(img6), nameList.append('thr_Gaussian')
-    plotImagList(imgList,nameList) 
+    plotImagList(imgList,nameList,True) 
 
     
 if __name__=='__main__':
