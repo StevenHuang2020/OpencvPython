@@ -34,6 +34,10 @@ dftImg.py
 <br/>
 <img src="images/dft.png" width="320" height="240">
 
+## yolo
+<img src="yolo/res/nz_street2.jpg" width="320" height="240">
+<img src="yolo/res/nz2.jpg" width="320" height="240">
+
 ## artImg
 artImg using DNN parameters
 <br/>
