@@ -1,4 +1,8 @@
 # OpencvPython
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![Python Version](https://img.shields.io/badge/python-v3.6-blue)
+![GitHub watchers](https://img.shields.io/github/watchers/StevenHuang2020/WebSpider?label=Watch&style=social)
+
 mainImageHist.py
 <br/>
 <img src="images/image_hist.png" width="320" height="240">
