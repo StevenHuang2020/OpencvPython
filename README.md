@@ -1,7 +1,4 @@
-# OpencvPython
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Python Version](https://img.shields.io/badge/python-v3.6-blue)
-![GitHub watchers](https://img.shields.io/github/watchers/StevenHuang2020/OpencvPython?label=Watch&style=social)
+# OpencvPython [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ![Python Version](https://img.shields.io/badge/python-v3.6-blue) ![GitHub watchers](https://img.shields.io/github/watchers/StevenHuang2020/OpencvPython?label=Watch&style=social)
 
 
 mainImageHist.py
@@ -9,20 +6,14 @@ mainImageHist.py
 <img src="images/image_hist.png" width="320" height="240">
 <img src="images/imag_hist_equalHist.png" width="320" height="240">
 
-faceIdentification.py
+faceIdentification & imgProjection
 <br/>
 <img src="images/location.png" width="320" height="240">
-
-imgProjection.py
-<br/>
 <img src="images/projection.png" width="320" height="240">
 
-convImg.py
+convImg & poolingImg
 <br/>
 <img src="images/convolutionImg.png" width="320" height="240">
-
-poolingImg.py
-<br/>
 <img src="images/poolingImg1.png" width="320" height="240">
 <img src="images/poolingImg2.png" width="320" height="240">
 <img src="images/poolingImg3.png" width="320" height="240">
@@ -40,6 +31,7 @@ dftImg.py
 <img src="images/dft.png" width="320" height="240">
 
 clip&gray&diff image
+<br/>
 <img src="images/clip.png" width="320" height="240">
 <img src="images/gray.png" width="320" height="240">
 <img src="images/diffimg.png" width="320" height="240">
