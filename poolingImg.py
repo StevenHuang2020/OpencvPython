@@ -1,7 +1,7 @@
 #python3
 #Steven image pooling modoule
 
-import cv2.cv2 as cv2 
+import cv2
 import matplotlib.pyplot as plt
 from ImageBase import *
 from mainImagePlot import plotImagList

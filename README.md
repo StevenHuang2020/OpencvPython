@@ -39,6 +39,13 @@ dftImg.py
 <br/>
 <img src="images/dft.png" width="320" height="240">
 
+clip&gray&diff image
+<img src="images/clip.png" width="320" height="240">
+<img src="images/gray.png" width="320" height="240">
+<img src="images/diffimg.png" width="320" height="240">
+<img src="images/diff2img.png" width="320" height="240">
+
+
 ## yolo
 <img src="yolo/res/nz_street2.jpg" width="320" height="240">
 <img src="yolo/res/nz2.jpg" width="320" height="240">

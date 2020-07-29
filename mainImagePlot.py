@@ -3,8 +3,9 @@
 
 import matplotlib.pyplot as plt
 from common import getRowAndColumn
+from ImageBase import *
 
-def plotImagList(imgList,nameList,gray=False):
+def plotImagList(imgList,nameList,gray=False,showticks=True):
     nImg = len(imgList)
     nRow,nColumn = getRowAndColumn(nImg)
     
@@ -16,16 +17,20 @@ def plotImagList(imgList,nameList,gray=False):
             plt.imshow(img,cmap="gray")
         else:
             plt.imshow(img)
-
+        
+        if not showticks:
+            ax.set_yticks([])
+            ax.set_xticks([])
     #plt.grid(True)
     plt.tight_layout()
     plt.show()
 
 def main():
-    #file = r'./res/obama.jpg'#'./res/Lenna.png' #
-    #img = ImageBase(file,mode=cv2.IMREAD_GRAYSCALE) # IMREAD_GRAYSCALE IMREAD_COLOR
-    #print(img.infoImg())
-    #showimage(img.binaryImage(thresHMin=50,thresHMax=150))
+    file = r'./res/obama.jpg'#'./res/Lenna.png' #
+    img = loadImg(file,mode=cv2.IMREAD_GRAYSCALE) # IMREAD_GRAYSCALE IMREAD_COLOR
+    infoImg(img)
+    img = binaryImage2(img,thresHMin=50,thresHMax=150)
+    showimage(img)
     pass
 
 if __name__=='__main__':

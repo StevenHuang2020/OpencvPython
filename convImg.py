@@ -1,7 +1,7 @@
 #python3
 #Steven image convolution modoule
 
-import cv2.cv2 as cv2 #pip install opencv-python
+import cv2 #pip install opencv-python
 import matplotlib.pyplot as plt
 from ImageBase import *
 from mainImagePlot import plotImagList
@@ -57,7 +57,7 @@ def main():
     imgList.append(k_Prewitt1Img), nameList.append('k_Prewitt1Img')
     imgList.append(k_Prewitt2Img), nameList.append('k_Prewitt2Img')
 
-    plotImagList(imgList,nameList,True) 
+    plotImagList(imgList,nameList) 
     pass
 
 if __name__=='__main__':

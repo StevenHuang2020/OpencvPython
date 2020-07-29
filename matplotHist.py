@@ -2,7 +2,7 @@
 #Steven matplot hisgram of image
 
 import numpy as np
-import cv2.cv2 as cv2
+import cv2
 from matplotlib import pyplot as plt
 
 def plotHist(file,mode=cv2.IMREAD_COLOR):

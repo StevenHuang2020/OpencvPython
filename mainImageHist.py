@@ -1,6 +1,6 @@
 #python3
 #Steven image histgram display modoule
-import cv2.cv2 as cv2 #pip install opencv-python
+import cv2 #pip install opencv-python
 import matplotlib.pyplot as plt
 
 from ImageBase import *
@@ -92,25 +92,25 @@ def showimage(img,str='image',autoSize=False):
 
 def main():
     file = './res/Lenna.png' #r'./res/obama.jpg'#
-    img = ImageBase(file,mode=cv2.IMREAD_COLOR) # IMREAD_GRAYSCALE IMREAD_COLOR
-    print(img.infoImg())
-    #img.showimage(autoSize=False)
-    #img.plotImg()
-    #showimage(img.calcAndDrawHist())
-    #showimage(img.thresHoldImage())
-    #img.showimage()
-    
-    #plotHistImg(img.image)
-    #plotImagAndHist(img.image)
-    #plotImagAndHist4(img.image)
-    
-    imgList=[]
-    imgGray = cv2.cvtColor(img.image, cv2.COLOR_BGR2GRAY)
-    imgList.append(img.image)
-    imgList.append(imgGray)
-    imgList.append(img.equalizedHist(imgGray))
+    img = loadImg(file,mode=cv2.IMREAD_COLOR) # IMREAD_GRAYSCALE IMREAD_COLOR
+    infoImg(img)
+    #showimage(img,autoSize=False)
+    #plotImg(img)
 
-    #plotImagHistListImg(imgList)
+    #showimage(calcAndDrawHist(img))
+    #showimage(thresHoldImage(img))
+       
+    #plotHistImg(img)
+    #plotImagAndHist(img)
+    #plotImagAndHist4(img)
+  
+    imgList=[]
+    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    imgList.append(img)
+    imgList.append(imgGray)
+    imgList.append(equalizedHist(imgGray))
+
+    plotImagHistListImg(imgList)
     plotImagHistListImgHist256(imgList)
 
 if __name__=='__main__':
