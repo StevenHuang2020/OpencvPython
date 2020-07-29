@@ -107,11 +107,12 @@ def main():
     imgList=[]
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     imgList.append(img)
+    imgList.append(equalizedHist(img))
     imgList.append(imgGray)
     imgList.append(equalizedHist(imgGray))
 
     plotImagHistListImg(imgList)
-    plotImagHistListImgHist256(imgList)
+    #plotImagHistListImgHist256(imgList)
 
 if __name__=='__main__':
     main()

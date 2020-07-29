@@ -79,7 +79,21 @@ def calcAndDrawHist(img,color=[255,255,255]): #color histgram
     return histImg
 
 def equalizedHist(img):
-    return cv2.equalizeHist(img)
+    chn = getImagChannel(img)
+    if chn == 1:
+        return cv2.equalizeHist(img)
+    else:
+        newImg = img.copy()
+        for n in range(chn):
+            newImg[:,:,n] = cv2.equalizeHist(newImg[:,:,n])
+        return newImg
+
+def histogram_equalize(img):
+    b, g, r = cv2.split(img)
+    red = cv2.equalizeHist(r)
+    green = cv2.equalizeHist(g)
+    blue = cv2.equalizeHist(b)
+    return cv2.merge((blue, green, red))
 
 def binaryImage(img,thresH):
     """img must be gray"""
