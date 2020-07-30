@@ -36,7 +36,8 @@ clip&gray&diff image
 <img src="images/gray.png" width="320" height="240">
 <img src="images/diffimg.png" width="320" height="240">
 <img src="images/diff2img.png" width="320" height="240">
-
+<img src="images/eqHist.png" width="320" height="240">
+<img src="images/otsu.png" width="320" height="240">
 
 ## artImg
 artImg using DNN parameters

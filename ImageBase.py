@@ -3,6 +3,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
+import random
 
 def changeBgr2Rbg(img): #input color img
     if getImagChannel(img) == 3:
@@ -51,8 +52,12 @@ def showimage(img,str='image',autoSize=False):
     cv2.destroyAllWindows()
     return
 
-def plotImg(img):
-    plt.imshow(img)
+def plotImg(img,gray=False):
+    if gray:
+        plt.imshow(img,cmap="gray")
+    else:
+        plt.imshow(img)
+            
     #plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
     plt.xticks([]), plt.yticks([]) # to hide tick values on X and Y axis
     plt.show()
@@ -215,4 +220,135 @@ def differImg(img, leftRight=True):
                     newImage[i, :, n] = img[i+1, :, n] - img[i, :, n]
             else:
                 newImage[i, :] = img[i+1, :] - img[i, :]
+    return newImage
+
+def reverseImg(img):
+    H,W = getImgHW(img)
+    chn = getImagChannel(img)
+    newImage = np.zeros_like(img)
+    #print(H,W)
+    if chn ==1:
+        for i in range(H):
+            for j in range(W):
+                newImage[i,j] = 255-img[i,j]
+    else:
+        for i in range(H):
+            for j in range(W):
+                newImage[i,j] = [255-img[i,j,0], 255-img[i,j,1], 255-img[i,j,2]]
+    return newImage
+
+def LightImg(img,ratio=1):
+    H, W = getImgHW(img)
+    chn =getImagChannel(img)
+    newImage = img.copy()
+    '''
+    for i in range(H):
+        for j in range(W):
+            b = img[i,j,0]*ratio
+            g = img[i,j,1]*ratio
+            r = img[i,j,2]*ratio
+            if b>255:
+                b = 255
+            if r>255:
+                r = 255
+            if g>255:
+                g = 255
+
+            newImage[i,j]=[b,g,r]
+    '''
+    '''
+    b = img[:,:,0]*ratio
+    g = img[:,:,1]*ratio
+    r = img[:,:,2]*ratio
+    b[b>255] = 255
+    r[r>255] = 255
+    g[g>255] = 255
+
+    newImage[:,:,0]=b
+    newImage[:,:,1]=g
+    newImage[:,:,2]=r
+    '''
+    a = img[:,:,:]*ratio
+    a[a>255] = 255
+    newImage[:,:,:]=a
+    return newImage
+
+def contrastFilterImg(img):#filter fuction to extent [min,max]
+    min = np.min(img)
+    max = np.max(img)
+    
+    print('Before contrast:min,max=',min,max)
+    
+    def f(x):
+        #return 100
+        #return 1.5*x + 100
+        #return f1(x)
+        return f3(x)
+    
+    def f3(x):#Nonlinear Stretching  
+        return 10*np.log(x+1) #c*log(x + 1)  c=1
+        return np.power(x,2) # c*x^r  c=1,r=0.6
+    
+    def f2(x): #piecewise (0,0) (100,50) (200,150) (255,255)
+        if x<100:
+            return 50*x/100
+        elif x<200:
+            return x-50
+        else:
+            return 21*x/11 - 200*21/11 + 150
+        
+    def f1(x): #linear
+        v = 255*(x-min)/(max-min)
+        if v>255: v = 255
+        return v
+    
+    H, W = getImgHW(img)
+    chn =getImagChannel(img)
+    newImage = np.zeros_like(img)
+    
+    if chn == 1:
+        for i in range(H):
+            for j in range(W):
+                newImage[i,j] = f(img[i,j])
+    else:  
+        for i in range(H):
+            for j in range(W):
+                b = img[i,j,0]
+                g = img[i,j,1]
+                r = img[i,j,2]
+                newImage[i,j] = [f(b),f(g),f(r)]
+
+    print('After contrast:min,max=',np.min(newImage),np.max(newImage))
+    return newImage
+
+def Baoguang(img, thres=128):
+    H, W = getImgHW(img)
+    chn =getImagChannel(img)
+    newImage = np.zeros_like(img)
+    
+    def getBGOne(v):
+        if v<thres:
+            return 255-v
+        return v
+    
+    if chn == 1:
+        for i in range(H):
+            for j in range(W):
+                newImage[i,j] = getBGOne(img[i,j])
+    else:
+        for i in range(H):
+            for j in range(W):
+                newImage[i,j] = [getBGOne(img[i,j,0]),getBGOne(img[i,j,1]),getBGOne(img[i,j,2])]
+    return newImage
+
+def Kuosan(img,N=3): #NxN jishu
+    H, W = getImgHW(img)
+    chn =getImagChannel(img)
+    newImage = img.copy()
+    off = N//2
+    for i in range(off,H-off):
+        for j in range(off,W-off):
+            lst = [img[i-1,j-1],img[i-1,j],img[i-1,j+1],img[i,j-1],img[i,j+1],img[i+1,j-1],img[i+1,j],img[i+1,j+1]]
+            #id = random.randint(0,len(lst)-1)
+            newImage[i,j] = random.choice(lst) #lst[id]
     return newImage

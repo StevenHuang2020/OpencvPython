@@ -4,15 +4,8 @@
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
+from ImageBase import *
 
-def plotHist(file,mode=cv2.IMREAD_COLOR):
-    img = cv2.imread(file,mode)
-    return plotHistImg(img)
-    
-def getImagChannel(img):
-    if img.ndim == 3: #color r g b channel
-        return 3
-    return 1  #only one channel
 
 def plotHistImg(img):
     color = ('b','g','r')
@@ -20,18 +13,22 @@ def plotHistImg(img):
     print(chn)
     for i in range(chn):
         histr = cv2.calcHist([img],[i],None,[256],[0,256])
-        print(type(histr),histr.shape)
+        #print(type(histr),histr.shape)
         #print(histr)
         #print(histr.ravel())
         plt.plot(histr,color = color[i])
         #plt.hist(histr.ravel(), 255, facecolor='blue', alpha=0.5)
         plt.xlim([0,256])
     plt.show()
-
-def getHist(file,mode=cv2.IMREAD_COLOR):
-    img = cv2.imread(file,mode)
-    return getImgHist(img)
-
+    
+    '''
+    for i,col in enumerate(color):
+        histr = cv2.calcHist([img],[i],None,[256],[0,256])
+        plt.plot(histr,color = col)
+        plt.xlim([0,256])
+    plt.show()
+    '''
+  
 def getImgHist(img):
     chn = getImagChannel(img)
     hists = []
@@ -59,28 +56,17 @@ def getHist256ImgFromHist(hist,color=[255,255,255]):
         cv2.line(histImg,(h,256), (h,256-intensity), color)
     return histImg
 
-def plotHistGray(file):
-    img = cv2.imread(file,0)
-    return plotHistGrayImg(img)
-
 def plotHistGrayImg(img):
+    img = grayImg(img)
     plt.hist(img.ravel(),256,[0,256])
     plt.show()
 
-def plotColorHist(file):
-    img = cv2.imread(file)
-    color = ('b','g','r')
-    for i,col in enumerate(color):
-        histr = cv2.calcHist([img],[i],None,[256],[0,256])
-        plt.plot(histr,color = col)
-        plt.xlim([0,256])
-    plt.show()
 
 def main():
     file=r'./res/Lenna.png'
-    #plotHistGray(file)
-    #plotColorHist(file)
-    plotHist(file,cv2.IMREAD_GRAYSCALE)
+    img = loadImg(file)
+    #plotHistGrayImg(img)
+    plotHistImg(img)
     pass
 
 if __name__=='__main__':
