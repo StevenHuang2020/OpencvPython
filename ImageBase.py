@@ -303,7 +303,7 @@ def contrastFilterImg(img):#filter fuction to extent [min,max]
         return v
     
     H, W = getImgHW(img)
-    chn =getImagChannel(img)
+    chn = getImagChannel(img)
     newImage = np.zeros_like(img)
     
     if chn == 1:
@@ -321,9 +321,9 @@ def contrastFilterImg(img):#filter fuction to extent [min,max]
     print('After contrast:min,max=',np.min(newImage),np.max(newImage))
     return newImage
 
-def Baoguang(img, thres=128):
+def BaoguangImg(img, thres=128):
     H, W = getImgHW(img)
-    chn =getImagChannel(img)
+    chn = getImagChannel(img)
     newImage = np.zeros_like(img)
     
     def getBGOne(v):
@@ -341,9 +341,9 @@ def Baoguang(img, thres=128):
                 newImage[i,j] = [getBGOne(img[i,j,0]),getBGOne(img[i,j,1]),getBGOne(img[i,j,2])]
     return newImage
 
-def Kuosan(img,N=3): #NxN jishu
+def KuosanImg(img,N=3): #NxN jishu
     H, W = getImgHW(img)
-    chn =getImagChannel(img)
+    chn = getImagChannel(img)
     newImage = img.copy()
     off = N//2
     for i in range(off,H-off):
@@ -351,4 +351,51 @@ def Kuosan(img,N=3): #NxN jishu
             lst = [img[i-1,j-1],img[i-1,j],img[i-1,j+1],img[i,j-1],img[i,j+1],img[i+1,j-1],img[i+1,j],img[i+1,j+1]]
             #id = random.randint(0,len(lst)-1)
             newImage[i,j] = random.choice(lst) #lst[id]
+    return newImage
+
+def meanImg(img):
+    H, W = getImgHW(img)
+    chn = getImagChannel(img)
+    #mean = np.sum(img[:,:,:])/(H*W*chn)
+    #print('mean = ',mean)
+    return np.mean(img)
+
+def deviationImg(img):
+    H, W = getImgHW(img)
+    chn = getImagChannel(img)
+    mean = meanImg(img)
+    if 1:
+        return np.sum((img[:,:,:]-mean)**2)/(H*W*chn)
+    else:
+        variance = np.sum(img[:,:,:]**2)/(H*W*chn)
+        return variance - mean**2
+    
+def pyramidImg(img): #2x2-->1
+    H, W = getImgHW(img)
+    chn = getImagChannel(img)
+    newImage = np.zeros((H//2, W//2,chn),dtype=np.uint8)
+    
+    filter=[2,2]
+    if chn == 1:
+        for i in range(H//2):
+            for j in range(W//2):
+                startX=j*filter[1]
+                stopX = startX + filter[1]
+                startY=i*filter[0]
+                stopY = startY + filter[0]
+                
+                newImage[i,j] = np.mean(img[startY:stopY,startX:stopX])
+    else:
+        for i in range(H//2):
+            for j in range(W//2):
+                startX=j*filter[1]
+                stopX = startX + filter[1]
+                startY=i*filter[0]
+                stopY = startY + filter[0]
+                
+                r = np.mean(img[startY:stopY,startX:stopX,0])
+                g = np.mean(img[startY:stopY,startX:stopX,1])
+                b = np.mean(img[startY:stopY,startX:stopX,2])
+                newImage[i,j] = [r,g,b]
+       
     return newImage

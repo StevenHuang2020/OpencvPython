@@ -94,6 +94,19 @@ def testDiffer2Img(img):
     ls.append(difUD2),nameList.append('difUD2')
     plotImagList(ls, nameList, gray=True)
 
+def testPyramid(img):
+    #img = grayImg(img)
+    pyramid = pyramidImg(img)
+    pyramid2 = pyramidImg(pyramid)
+    pyramid4 = pyramidImg(pyramid2)
+    
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('img')
+    ls.append(pyramid),nameList.append('pyramid')
+    ls.append(pyramid2),nameList.append('pyramid2')
+    ls.append(pyramid4),nameList.append('pyramid4')
+    plotImagList(ls, nameList)
+    
 if __name__ == "__main__":
     img = loadImg(r'./res/Lenna.png')
     #img = loadImg(r'./res/shudu2.jpg',0)
@@ -101,6 +114,7 @@ if __name__ == "__main__":
     
     #testFlip(img)
     #testGrayImg(img)
-    #testDifferImg(img)
-    testDiffer2Img(img)
-    
+    testDifferImg(img)
+    #testDiffer2Img(img)
+    #print('mean,deviation=',meanImg(img),deviationImg(img))
+    #testPyramid(img)
