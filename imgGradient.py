@@ -20,6 +20,6 @@ def gradientImg(img):
     plotImagList(ls, nameList,gray=False)
     
 if __name__ == "__main__":
-    img = loadImg(r'./res/sudoku-original.jpg') #Road_in_Norway.jpg
+    img = loadImg(r'./res/Lenna.png') #Road_in_Norway.jpg
     gradientImg(img)
     

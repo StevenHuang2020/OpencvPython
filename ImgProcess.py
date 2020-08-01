@@ -67,10 +67,10 @@ def testGrayImg(img):
     
 def testDifferImg(img):
     difRL = differImg(img)
-    difUD = differImg(img,False)
+    difUD = differImg(img,1)
     gray = grayImg(img)
     difGrayRL = differImg(gray)
-    difGrayUD = differImg(gray,False)
+    difGrayUD = differImg(gray,1)
     
     ls,nameList = [],[]
     ls.append(difRL),nameList.append('difRL')
@@ -82,10 +82,10 @@ def testDifferImg(img):
 def testDiffer2Img(img):
     img = grayImg(img)
     difRL = differImg(img)
-    difUD = differImg(img,False)
+    difUD = differImg(img,1)
    
     difRL2 = differImg(difRL)
-    difUD2 = differImg(difUD,False)
+    difUD2 = differImg(difUD,1)
     
     ls,nameList = [],[]
     ls.append(difRL),nameList.append('difRL')
@@ -94,6 +94,19 @@ def testDiffer2Img(img):
     ls.append(difUD2),nameList.append('difUD2')
     plotImagList(ls, nameList, gray=True)
 
+def testDiffer3Img(img):
+    #img = grayImg(img)
+    difRL = differImg(img)
+    difUD = differImg(img,1)
+    difAll = differImg(img,2)
+    
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('img')
+    ls.append(difRL),nameList.append('difRL')
+    ls.append(difUD),nameList.append('difUD')
+    ls.append(difAll),nameList.append('difAll')
+    plotImagList(ls, nameList, gray=True)
+    
 def testPyramid(img):
     #img = grayImg(img)
     pyramid = pyramidImg(img)
@@ -114,7 +127,8 @@ if __name__ == "__main__":
     
     #testFlip(img)
     #testGrayImg(img)
-    testDifferImg(img)
+    #testDifferImg(img)
+    testDiffer3Img(img)
     #testDiffer2Img(img)
     #print('mean,deviation=',meanImg(img),deviationImg(img))
     #testPyramid(img)

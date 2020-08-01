@@ -201,25 +201,38 @@ def custGray(img,mean=True):
     #newImage = newImage % 255
     return newImage
 
-def differImg(img, leftRight=True):
+def differImg(img, flag=0):
     H, W = getImgHW(img)
     chn = getImagChannel(img)
     newImage = np.zeros_like(img)
     
-    if leftRight:
+    if flag == 0: #leftRight
         for j in range(W-1):
             if chn>1:
                 for n in range(chn):
                     newImage[:, j, n] = img[:, j+1, n] - img[:, j, n]
             else:
                 newImage[:, j] = img[:, j+1] - img[:, j]
-    else:
+    elif flag == 1: #up down deviation
         for i in range(H-1):
             if chn>1:
                 for n in range(chn):
                     newImage[i, :, n] = img[i+1, :, n] - img[i, :, n]
             else:
                 newImage[i, :] = img[i+1, :] - img[i, :]
+    else:
+        for i in range(H-1):
+            for j in range(W-1):
+                if chn>1:
+                    for n in range(chn):
+                        a = (img[i, j+1, n] - img[i, j, n])**2
+                        b = (img[i+1, j, n] - img[i, j, n])**2                        
+                        newImage[i, j, n] = np.sqrt(a+b) #deviations
+                else:
+                    a = (img[i, j+1] - img[i, j])**2
+                    b = (img[i+1, j] - img[i, j])**2                        
+                    newImage[i, j] = np.sqrt(a+b) #deviations
+                
     return newImage
 
 def reverseImg(img):
