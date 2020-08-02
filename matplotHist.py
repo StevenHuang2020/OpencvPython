@@ -20,14 +20,6 @@ def plotHistImg(img):
         #plt.hist(histr.ravel(), 255, facecolor='blue', alpha=0.5)
         plt.xlim([0,256])
     plt.show()
-    
-    '''
-    for i,col in enumerate(color):
-        histr = cv2.calcHist([img],[i],None,[256],[0,256])
-        plt.plot(histr,color = col)
-        plt.xlim([0,256])
-    plt.show()
-    '''
   
 def getImgHist(img):
     chn = getImagChannel(img)

@@ -5,10 +5,11 @@ import matplotlib.pyplot as plt
 from common import getRowAndColumn
 from ImageBase import *
 
-def plotImagList(imgList,nameList,gray=False,showticks=True):
+def plotImagList(imgList, nameList, title='', gray=False, showticks=True):
     nImg = len(imgList)
     nRow,nColumn = getRowAndColumn(nImg)
     
+    plt.figure().suptitle(title, fontsize="x-large")
     for n in range(nImg):
         img = imgList[n]
         ax = plt.subplot(nRow, nColumn, n + 1)

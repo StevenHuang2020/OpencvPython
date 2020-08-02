@@ -1,4 +1,5 @@
 #python3
+#%%
 import numpy as np
 from ImageBase import *
 from mainImagePlot import plotImagList
@@ -6,7 +7,8 @@ from videoCap import *
 from matplotlib import pyplot as plt
 import cv2
 from ImageSmoothing import *
-from garborFeatures import garborImg
+from garborFeatures import gaborImg
+from matplotHist import plotHistImg
 
 def capColor():
     cap = openCap()
@@ -50,7 +52,7 @@ def testFlip(img):
     ls.append(flip),nameList.append('flip')
     ls.append(flip2),nameList.append('flip2')
    
-    plotImagList(ls,nameList,gray=False)
+    plotImagList(ls,nameList,title='Flip image',gray=False)
     
 def testGrayImg(img):
     gray = grayImg(img)
@@ -65,7 +67,7 @@ def testGrayImg(img):
     ls.append(grayMean),nameList.append('grayMean')
     ls.append(grayC),nameList.append('grayC')
     
-    plotImagList(ls,nameList,gray=True)
+    plotImagList(ls,nameList,title='Customized Gray Image',gray=True)
     
 def testDifferImg(img):
     difRL = differImg(img)
@@ -79,7 +81,7 @@ def testDifferImg(img):
     ls.append(difUD),nameList.append('difUD')
     ls.append(difGrayRL),nameList.append('difGrayRL')
     ls.append(difGrayUD),nameList.append('difGrayUD')
-    plotImagList(ls, nameList, gray=True)
+    plotImagList(ls, nameList, title='Gradient image',gray=True)
     
 def testDiffer2Img(img):
     img = grayImg(img)
@@ -94,7 +96,7 @@ def testDiffer2Img(img):
     ls.append(difUD),nameList.append('difUD')
     ls.append(difRL2),nameList.append('difRL2')
     ls.append(difUD2),nameList.append('difUD2')
-    plotImagList(ls, nameList, gray=True)
+    plotImagList(ls, nameList, title='2nd Gradient image',gray=True)
 
 def testDiffer3Img(img):
     #img = grayImg(img)
@@ -107,7 +109,7 @@ def testDiffer3Img(img):
     ls.append(difRL),nameList.append('difRL')
     ls.append(difUD),nameList.append('difUD')
     ls.append(difAll),nameList.append('difAll')
-    plotImagList(ls, nameList, gray=True)
+    plotImagList(ls, nameList, title='Gradient tow directions image', gray=True)
     
 def testPyramid(img):
     #img = grayImg(img)
@@ -120,12 +122,12 @@ def testPyramid(img):
     ls.append(pyramid),nameList.append('pyramid')
     ls.append(pyramid2),nameList.append('pyramid2')
     ls.append(pyramid4),nameList.append('pyramid4')
-    plotImagList(ls, nameList)
+    plotImagList(ls, nameList,title='Pyramid image')
     
 def testSmoothing(img):
-    blur = blurImg(img)
-    gaussian = gaussianBlurImg(img)
-    medianBlur = medianBlurImg(img)
+    blur = blurImg(img,ksize=7)
+    gaussian = gaussianBlurImg(img,ksize=7)
+    medianBlur = medianBlurImg(img,ksize=7)
     bilateral = bilateralBlurImg(img)
     
     ls,nameList = [],[]
@@ -135,7 +137,7 @@ def testSmoothing(img):
     ls.append(medianBlur),nameList.append('medianBlur')
     ls.append(bilateral),nameList.append('bilateral')
     
-    plotImagList(ls, nameList)
+    plotImagList(ls, nameList,title='Smoothing image')
     
 def testNoiseImg(img):
     infoImg(img)
@@ -145,7 +147,7 @@ def testNoiseImg(img):
     ls.append(img),nameList.append('Original')
     ls.append(noise),nameList.append('noise')
     
-    plotImagList(ls, nameList)
+    plotImagList(ls, nameList,title='Add noise image')
     writeImg(changeRbg2Bgr(noise),r'.\res\LennaNoise.png')
     
 def testProjection(img):
@@ -168,14 +170,28 @@ def testProjection(img):
 
 def testGarbor(img):
     gray = grayImg(img)
-    garbo = garborImg(gray)
+    garbo = gaborImg(gray)
     
     ls,nameList = [],[]
     ls.append(img),nameList.append('Original')
     ls.append(gray),nameList.append('gray')
     ls.append(garbo),nameList.append('garbo')
 
-    plotImagList(ls, nameList)
+    plotImagList(ls, nameList,title='Gabor filter')
+    
+def testEqualizedHistImg(img):
+    gray = grayImg(img)
+    eqImg = custEqualizedHist(img)
+    eqGrayImg = custEqualizedHist(gray)
+    #plotHistImg(eqImg)
+    
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('Original')
+    ls.append(eqImg),nameList.append('eqImg')
+    ls.append(gray),nameList.append('gray')
+    ls.append(eqGrayImg),nameList.append('eqGrayImg')
+
+    plotImagList(ls, nameList,title='Equalized Histogram')
     
 if __name__ == "__main__":
     img = loadImg(r'./res/Lenna.png')
@@ -187,11 +203,12 @@ if __name__ == "__main__":
     #testFlip(img)
     #testGrayImg(img)
     #testDifferImg(img)
-    #testDiffer3Img(img)
     #testDiffer2Img(img)
+    #testDiffer3Img(img)
     #print('mean,deviation=',meanImg(img),deviationImg(img))
     #testPyramid(img)
     #testSmoothing(img)
     #testNoiseImg(img)
     #testProjection(img)
-    testGarbor(img)
+    #testGarbor(img)
+    testEqualizedHistImg(img)

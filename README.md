@@ -3,8 +3,11 @@
 
 mainImageHist.py
 <br/>
-<img src="images/image_hist.png" width="320" height="240">
+<img src="images/hist.png" width="320" height="240">
 <img src="images/imag_hist_equalHist.png" width="320" height="240">
+<img src="images/eqHist.png" width="320" height="240">
+<img src="images/eqHist2.png" width="320" height="240">
+<img src="images/histAll.png" width="320" height="240">
 
 faceIdentification & imgProjection
 <br/>
@@ -34,10 +37,19 @@ clip&gray&diff image
 <br/>
 <img src="images/clip.png" width="320" height="240">
 <img src="images/gray.png" width="320" height="240">
-<img src="images/diffimg.png" width="320" height="240">
 <img src="images/diff2img.png" width="320" height="240">
-<img src="images/eqHist.png" width="320" height="240">
+<img src="images/diff3img.png" width="320" height="240">
+<img src="images/diff4img.png" width="320" height="240">
+<img src="images/garbor.png" width="320" height="240">
+<img src="images/gradientGray.png" width="320" height="240">
+<img src="images/gray.png" width="320" height="240">
+<img src="images/grsdient.png" width="320" height="240">
+<img src="images/kMeans.png" width="320" height="240">
+<img src="images/kMeansCV.png" width="320" height="240">
 <img src="images/otsu.png" width="320" height="240">
+<img src="images/otsuBinary.png" width="320" height="240">
+<img src="images/pyramid.png" width="320" height="240">
+<img src="images/smoothing.png" width="320" height="240">
 
 ## artImg
 artImg using DNN parameters

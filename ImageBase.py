@@ -99,6 +99,32 @@ def equalizedHist(img):
             newImg[:,:,n] = cv2.equalizeHist(newImg[:,:,n])
         return newImg
 
+def custEqualizedHist(img):
+    H, W = getImgHW(img)
+    chn = getImagChannel(img)
+    
+    newImage = np.zeros_like(img)
+    if chn == 1:
+        for n in range(chn):
+            hist = cv2.calcHist([img],[n],None,[256],[0,256])
+            cumSumP = np.cumsum(hist/(H*W))
+                    
+            for i in range(H):
+                for j in range(W):
+                    newImage[i,j] = 255*cumSumP[img[i,j]]
+    else:        
+        for n in range(chn):
+            hist = cv2.calcHist([img],[n],None,[256],[0,256])
+            #print(hist)
+            p = hist/(H*W)
+            #print(p)
+            cumSumP = np.cumsum(p)
+                    
+            for i in range(H):
+                for j in range(W):
+                    newImage[i,j,n] = 255*cumSumP[img[i,j,n]]
+    return newImage    
+    
 def histogram_equalize(img):
     b, g, r = cv2.split(img)
     red = cv2.equalizeHist(r)

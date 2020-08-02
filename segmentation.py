@@ -4,18 +4,18 @@ from ImageBase import *
 from mainImageHist import plotImagAndHist,plotImgHist
 from mainImagePlot import plotImagList
 import matplotlib.pyplot as plt
-from otsuAlgorithm import OtsuAlgorithm,plotHistAndOtsu
+from otsuAlgorithm import calculateOtsu,plotHistAndOtsu
 from kmeansSegmentation import KMeansSegmentation,drawPointsImg,KMeansSegmentation2
 
 def testOtsu(img):
     gray = grayImg(img)
-    otsu = OtsuAlgorithm(gray)
-    print('fns=',otsu.fns,'otsuMin=',otsu.fn_min, 'otsuMinThres=', otsu.thresh)
+    hist,fns, thresh = calculateOtsu(gray)
+    print('fns=',fns, 'otsuMinThres=', thresh)
     
-    fns = np.array(otsu.fns)
+    fns = np.array(fns)
     fns = fns/100
-    plotHistAndOtsu(otsu.hist,fns,otsu.thresh)
-    plotImg(binaryImage(gray, otsu.thresh), gray=True)
+    plotHistAndOtsu(hist,fns,thresh)
+    plotImg(binaryImage(gray, thresh), gray=True)
     
 def testKMeans(img):
     #img = grayImg(img)
@@ -27,7 +27,7 @@ def testKMeans(img):
     ls.append(img),nameList.append('Original')
     ls.append(km),nameList.append('km')
     ls.append(kmDraw),nameList.append('kmDraw')
-    plotImagList(ls,nameList,showticks=False)
+    plotImagList(ls,nameList,title='CV KMeans Segmentation',showticks=False)
     
 def testKMeans2(img):
     gray = grayImg(img)
@@ -39,7 +39,7 @@ def testKMeans2(img):
     ls.append(km),nameList.append('km')
     ls.append(gray),nameList.append('gray')
     ls.append(kmGray),nameList.append('kmGray')
-    plotImagList(ls,nameList,showticks=False)
+    plotImagList(ls,nameList,title='KMeans Segmentation',showticks=False)
     
 def main():
     img = loadImg(r'.\res\Lenna.png') #otsus_algorithm.jpg Lenna.png

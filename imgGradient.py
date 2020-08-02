@@ -17,7 +17,7 @@ def gradientImg(img):
     ls.append(laplacian),nameList.append('laplacian')
     ls.append(sobelx),nameList.append('sobelx')
     ls.append(sobely),nameList.append('sobely')
-    plotImagList(ls, nameList,gray=False)
+    plotImagList(ls, nameList,title='Fliter Image',gray=False)
     
 if __name__ == "__main__":
     img = loadImg(r'./res/Lenna.png') #Road_in_Norway.jpg

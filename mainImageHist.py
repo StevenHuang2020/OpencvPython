@@ -6,9 +6,10 @@ import matplotlib.pyplot as plt
 from ImageBase import *
 from matplotHist import plotHistImg, getImgHist, getImgHist256Img
 
-def plotImagHistListImgHist256(imgList):
+def plotImagHistListImgHist256(imgList,title):
     nImg = len(imgList)
     nColumn = 3
+    plt.figure().suptitle(title, fontsize="x-large")
     for n in range(nImg):
         img = imgList[n]
         plt.subplot(nImg, nColumn, n*nColumn + 1) #raw img    
@@ -24,9 +25,10 @@ def plotImagHistListImgHist256(imgList):
     plt.tight_layout()
     plt.show()
 
-def plotImagHistListImg(imgList):
+def plotImagHistListImg(imgList,title=''):
     nImg = len(imgList)
     nColumn = 2
+    plt.figure().suptitle(title, fontsize="x-large")
     for n in range(nImg):
         img = imgList[n]
         plt.subplot(nImg, nColumn, n*nColumn + 1) #raw img    
@@ -56,19 +58,14 @@ def plotImgHist256Img(img):
         break
 
 def plotImagAndHist4(img):  #must color img
-    b,g,r = cv2.split(img)       # get b,g,r
-    img = cv2.merge([r,g,b])     # switch it to rgb
-    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    imgGray = grayImg(img)
 
     imgList=[]
     imgList.append(img)
     imgList.append(imgGray)
-    return plotImagHistListImg(imgList)
+    return plotImagHistListImg(imgList,'Image&Gray Histogram')
 
 def plotImagAndHist(img):
-    b,g,r = cv2.split(img)       # get b,g,r
-    img = cv2.merge([r,g,b])     # switch it to rgb
-
     plt.subplot(1, 2, 1)    
     plt.imshow(img)
 
@@ -79,20 +76,20 @@ def plotImagAndHist(img):
     plt.tight_layout()
     plt.show()
 
-def showimage(img,str='image',autoSize=False):
-    flag = cv2.WINDOW_NORMAL
-    if autoSize:
-        flag = cv2.WINDOW_AUTOSIZE
+def plotEqHist4(img):
+    imgList=[]
+    imgGray = grayImg(img)
+    imgList.append(img)
+    imgList.append(equalizedHist(img))
+    imgList.append(imgGray)
+    imgList.append(equalizedHist(imgGray))
 
-    cv2.namedWindow(str, flag) #cv2.WINDOW_NORMAL)
-    cv2.imshow(str,img)
-   
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
+    #plotImagHistListImg(imgList,'Image&Gray Histogram')
+    plotImagHistListImgHist256(imgList,'Image&Gray Histogram All')
+    
 def main():
     file = './res/Lenna.png' #r'./res/obama.jpg'#
-    img = loadImg(file,mode=cv2.IMREAD_COLOR) # IMREAD_GRAYSCALE IMREAD_COLOR
+    img = loadImg(file) # IMREAD_GRAYSCALE IMREAD_COLOR
     infoImg(img)
     #showimage(img,autoSize=False)
     #plotImg(img)
@@ -103,16 +100,9 @@ def main():
     #plotHistImg(img)
     #plotImagAndHist(img)
     #plotImagAndHist4(img)
-  
-    imgList=[]
-    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    imgList.append(img)
-    imgList.append(equalizedHist(img))
-    imgList.append(imgGray)
-    imgList.append(equalizedHist(imgGray))
+    plotEqHist4(img)
 
-    plotImagHistListImg(imgList)
-    #plotImagHistListImgHist256(imgList)
+    
 
 if __name__=='__main__':
     main()
