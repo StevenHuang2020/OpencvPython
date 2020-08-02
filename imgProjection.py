@@ -1,5 +1,5 @@
 #python3
-#Steven projection black and whight grayscale image
+#Steven projection black and whight binary grayscale image
 import cv2.cv2 as cv2
 import numpy as np
 from ImageBase import *
@@ -25,7 +25,7 @@ def projectionVertical(img):
     return resImg
 
 def main():
-    file = r'./res/myface_gray.png' #r'./res/obama.jpg'
+    file = r'./res/Lenna.png' #r'./res/obama.jpg'
     img = loadImg(file,mode=cv2.IMREAD_COLOR)
     imgGray = grayImg(img)
     bImg = binaryImage(imgGray, thresH=110)

@@ -5,6 +5,8 @@ from mainImagePlot import plotImagList
 from videoCap import *
 from matplotlib import pyplot as plt
 import cv2
+from ImageSmoothing import *
+from garborFeatures import garborImg
 
 def capColor():
     cap = openCap()
@@ -120,15 +122,76 @@ def testPyramid(img):
     ls.append(pyramid4),nameList.append('pyramid4')
     plotImagList(ls, nameList)
     
+def testSmoothing(img):
+    blur = blurImg(img)
+    gaussian = gaussianBlurImg(img)
+    medianBlur = medianBlurImg(img)
+    bilateral = bilateralBlurImg(img)
+    
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('Original')
+    ls.append(blur),nameList.append('blur')
+    ls.append(gaussian),nameList.append('gaussian')
+    ls.append(medianBlur),nameList.append('medianBlur')
+    ls.append(bilateral),nameList.append('bilateral')
+    
+    plotImagList(ls, nameList)
+    
+def testNoiseImg(img):
+    infoImg(img)
+    noise = noiseImg(img,50000)
+    
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('Original')
+    ls.append(noise),nameList.append('noise')
+    
+    plotImagList(ls, nameList)
+    writeImg(changeRbg2Bgr(noise),r'.\res\LennaNoise.png')
+    
+def testProjection(img):
+    gray = grayImg(img)
+    binary = binaryImage(gray,120)
+    
+    xPixNums, yPixNums = grayProjection(binary)
+    print('xPixNums=',xPixNums)
+    print('yPixNums=',yPixNums)
+    
+    # ls,nameList = [],[]
+    # ls.append(img),nameList.append('Original')
+    # ls.append(gray),nameList.append('gray')
+    # ls.append(binary),nameList.append('binary')
+
+    # plotImagList(ls, nameList)
+    
+    plt.plot(range(len(yPixNums)), yPixNums)
+    plt.show()
+
+def testGarbor(img):
+    gray = grayImg(img)
+    garbo = garborImg(gray)
+    
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('Original')
+    ls.append(gray),nameList.append('gray')
+    ls.append(garbo),nameList.append('garbo')
+
+    plotImagList(ls, nameList)
+    
 if __name__ == "__main__":
     img = loadImg(r'./res/Lenna.png')
     #img = loadImg(r'./res/shudu2.jpg',0)
+    #img = loadImg(r'./res/LennaNoise.png')
+    
     #infoImg(img)
     
     #testFlip(img)
     #testGrayImg(img)
     #testDifferImg(img)
-    testDiffer3Img(img)
+    #testDiffer3Img(img)
     #testDiffer2Img(img)
     #print('mean,deviation=',meanImg(img),deviationImg(img))
     #testPyramid(img)
+    #testSmoothing(img)
+    #testNoiseImg(img)
+    #testProjection(img)
+    testGarbor(img)

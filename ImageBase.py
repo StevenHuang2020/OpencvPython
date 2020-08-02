@@ -11,6 +11,12 @@ def changeBgr2Rbg(img): #input color img
         img = cv2.merge([r,g,b])
     return img
 
+def changeRbg2Bgr(img): #when save
+    if getImagChannel(img) == 3:
+        r,g,b = cv2.split(img)       
+        img = cv2.merge([b,g,r])
+    return img
+
 def loadImg(file,mode=cv2.IMREAD_COLOR):
     #mode = cv2.IMREAD_COLOR cv2.IMREAD_GRAYSCALE cv2.IMREAD_UNCHANGED
     try:
@@ -106,7 +112,6 @@ def binaryImage(img,thresH):
     newImage = img.copy()
     for i in range(H):
         for j in range(W):
-            #print(newImage[i,j])
             if newImage[i,j] < thresH:
                 newImage[i,j] = 0
             else:
@@ -141,7 +146,7 @@ def OtsuMethodThresHold(img):
     #ret3,th3 = cv2.threshold(blur,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     return threshold
     
-def thresHoldModel(img,mode=cv2.ADAPTIVE_THRESH_MEAN_C):
+def thresHoldModel(img,mode=cv2.ADAPTIVE_THRESH_MEAN_C): 
     #cv2.ADAPTIVE_THRESH_GAUSSIAN_C
     return cv2.adaptiveThreshold(img,255,mode,cv2.THRESH_BINARY,11,2)
 
@@ -186,19 +191,12 @@ def custGray(img,mean=True):
     
     if mean:    
         #grayscale = (R + G + B)/3 
-        # for i in range(H):
-        #     newImage[i, :] = (img[i, :, 0] + img[i, :, 1] + img[i, :, 2])//3
+        #newImage[:, :] = img[:, :, 0]
         newImage[:, :] = (img[:, :, 0] + img[:, :, 1] + img[:, :, 2])/3
-    else:       
-        #grayscale = ( (0.3 * R) + (0.59 * G) + (0.11 * B) )
-        # for i in range(H):
-        #     newImage[i, :] = (img[i, :, 0]*0.3 + img[i, :, 1]*0.59 + img[i, :, 2]*0.11)
-        #newImage[:, :] = (img[:, :, 0]*0.3 + img[:, :, 1]*0.59 + img[:, :, 2]*0.11)
-        
+    else:            
         #grayscale = ( (0.229 * R) + (0.587 * G) + (0.114 * B) )
         newImage[:, :] = (img[:, :, 0]*0.229 + img[:, :, 1]*0.587 + img[:, :, 2]*0.114)
-        
-    #newImage = newImage % 255
+
     return newImage
 
 def differImg(img, flag=0):
@@ -412,3 +410,39 @@ def pyramidImg(img): #2x2-->1
                 newImage[i,j] = [r,g,b]
        
     return newImage
+
+def noiseImg(img,N):
+    H, W = getImgHW(img)
+    chn = getImagChannel(img)
+    newImg = img.copy()
+    
+    #rdColor = np.random.randint(256, size=(1,1,chn))
+    #print(rd)
+    rdPointsX = np.random.randint(W, size=(1,N))
+    #print('rdPointsX=',rdPointsX)
+    rdPointsY = np.random.randint(H, size=(1,N))
+    #print('rdPointsY=',rdPointsY)
+    pts = np.hstack((rdPointsX.T, rdPointsY.T)) #np.concatenate((rdPointsX.T,rdPointsY.T), axis=0)
+    #print('pts=',pts)
+    
+    for pt in pts:
+        newImg[pt[0],pt[1],:] = np.random.randint(256, size=(1,1,chn))
+    return newImg
+
+def grayProjection(img):
+    H, W = getImgHW(img)
+
+    xPixNums = np.zeros((W), np.uint8)
+    yPixNums = np.zeros((H), np.uint8)
+    for i in range(H):#horizontal
+        for j in range(W):
+            if img[i,j] !=255:
+                yPixNums[i]+=1
+                
+    for j in range(W): #vertical
+        for i in range(H):
+            if img[i,j] !=255:
+                xPixNums[j]+=1
+
+    return xPixNums,yPixNums
+

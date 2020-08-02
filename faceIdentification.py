@@ -2,7 +2,7 @@
 #Steven face identification
 #process: 1.preprecess 2. face position 3.feature extraction 4.face recognition
 import os,sys
-import cv2.cv2 as cv2
+import cv2
 import numpy as np
 
 from CascadeClassifier import CascadeClassifier
@@ -21,8 +21,7 @@ def main():
     cascPath=r'./res/haarcascade_frontalface_default.xml'
 
     img = loadImg(file,mode=cv2.IMREAD_COLOR) # IMREAD_GRAYSCALE IMREAD_COLOR
-    img = changeBgr2Rbg(img)
-    
+        
     faceROI = CascadeClassifier(cascPath)
  
     faceR=faceROI.getDetectImg(img)
