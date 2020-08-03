@@ -472,3 +472,44 @@ def grayProjection(img):
 
     return xPixNums,yPixNums
 
+def autoThresholdValue(img):
+    def newTValue(hist,T):
+        value1 = 0
+        num1 = 0
+        
+        value2 = 0
+        num2 = 0
+        for i,V in enumerate(hist): #2 class average gray value
+            if i<=T:
+                value1 = value1 + i*V
+                num1 = num1 + V
+            else:
+                value2 = value2 + i*V
+                num2 = num2 + V
+            
+        if num1 == 0:
+            T1 = T
+        else:
+            T1 = value1/num1
+
+        if num2 == 0:
+            T2 = T
+        else:
+            T2 = value2/num2
+
+        print(T,T1,T2,'Next:',(T1+T2)/2)
+        return (T1+T2)/2
+
+    hist= cv2.calcHist([img], [0], None, [256], [0.0,255.0])
+    hist = hist.ravel()
+    print('hist=',len(hist),hist)
+    
+    T = cv2.mean(img)[0]
+    print('T0=',T)
+    while(True):
+        nT = newTValue(hist,T)
+        if abs(nT-T)<0.2:
+            break
+        else:
+            T = nT
+    return T
