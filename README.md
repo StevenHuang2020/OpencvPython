@@ -58,10 +58,10 @@ clip&gray&diff image
 artImg using DNN parameters
 <br/>
 <img src="images/Lenna.png" width="160" height="120">
-<img src="images/a.png" width="160" height="120">
-<img src="images/b.png" width="160" height="120">
+<img src="images/art/a.png" width="160" height="120">
+<img src="images/art/b.png" width="160" height="120">
 <br/>
-<img src="images/c.png" width="160" height="120">
-<img src="images/d.png" width="160" height="120">
-<img src="images/e.png" width="160" height="120">
+<img src="images/art/c.png" width="160" height="120">
+<img src="images/art/d.png" width="160" height="120">
+<img src="images/art/e.png" width="160" height="120">
 <br/>
