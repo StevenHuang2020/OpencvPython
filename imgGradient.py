@@ -3,6 +3,7 @@ import numpy as np
 from mainImagePlot import plotImagList
 from ImageBase import *
 
+
 def gradientImg(img):
     #img = grayImg(img)
     laplacian = cv2.Laplacian(img,cv2.CV_64F)

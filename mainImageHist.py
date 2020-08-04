@@ -87,6 +87,22 @@ def plotEqHist4(img):
     #plotImagHistListImg(imgList,'Image&Gray Histogram')
     plotImagHistListImgHist256(imgList,'Image&Gray Histogram All')
     
+def plotHinstAndDerivative(img):
+    hists = getImgHist(grayImg(img))
+    hists = hists[0].ravel()
+    length = len(hists)
+    #print('Hist=',length,hists)
+    
+    derivative = np.zeros((length,))
+    for i in range(length-1):
+        derivative[i] = hists[i+1]-hists[i]
+    #print('derivative =',derivative)
+    
+    plt.plot(range(length),hists,label='hinst')
+    plt.plot(range(length),derivative,label='derivative')
+    plt.legend()
+    plt.show()
+    
 def main():
     file = './res/Lenna.png' #r'./res/obama.jpg'#
     img = loadImg(file) # IMREAD_GRAYSCALE IMREAD_COLOR
@@ -100,8 +116,8 @@ def main():
     #plotHistImg(img)
     #plotImagAndHist(img)
     #plotImagAndHist4(img)
-    plotEqHist4(img)
-
+    #plotEqHist4(img)
+    plotHinstAndDerivative(img)
     
 
 if __name__=='__main__':

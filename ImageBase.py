@@ -28,6 +28,11 @@ def loadImg(file,mode=cv2.IMREAD_COLOR):
         img = changeBgr2Rbg(img)
     return img
 
+def loadGrayImg(file):
+    img = loadImg(file)
+    img = grayImg(img)
+    return img
+
 def writeImg(img,filePath):
     cv2.imwrite(filePath,img)
 
@@ -513,3 +518,7 @@ def autoThresholdValue(img):
         else:
             T = nT
     return T
+
+#https://docs.opencv.org/trunk/da/d22/tutorial_py_canny.html
+def cannyImg(img,threshold1=100,threshold2=200):
+    return cv2.Canny(img, threshold1=threshold1, threshold2=threshold2)

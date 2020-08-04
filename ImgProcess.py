@@ -193,6 +193,38 @@ def testEqualizedHistImg(img):
 
     plotImagList(ls, nameList,title='Equalized Histogram')
     
+def testSubtractImg():
+    file1 = r'.\res\Lenna.png' # r'.\res\pngs\out14.png'
+    file2 = r'.\res\LennaStar.png' # r'.\res\pngs\out15.png'
+    
+    img1 = loadImg(file1)
+    img2 = loadImg(file2)
+    
+    img1 = grayImg(img1)
+    img2 = grayImg(img2)
+    img1 = blurImg(img1)
+    img2 = blurImg(img2)
+    
+    diff = img1-img2
+    bDiff = binaryImage(diff,20)
+    ls,nameList = [],[]
+    ls.append(img1),nameList.append('img1')
+    ls.append(img2),nameList.append('img2')
+    ls.append(diff),nameList.append('diff')
+    ls.append(bDiff),nameList.append('bDiff')
+    
+    #plotHistImg(diff)
+    #plt.hist(diff.ravel(),256,[0,256])
+    plotImagList(ls, nameList,gray=True,title='Subtract Image')
+
+def testEdgeImg(img):
+    canny = cannyImg(img)
+    
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('img')
+    ls.append(canny),nameList.append('canny')
+    plotImagList(ls, nameList,gray=True,title='Canny edge Image')
+    
 if __name__ == "__main__":
     img = loadImg(r'./res/Lenna.png')
     #img = loadImg(r'./res/shudu2.jpg',0)
@@ -211,4 +243,7 @@ if __name__ == "__main__":
     #testNoiseImg(img)
     #testProjection(img)
     #testGarbor(img)
-    testEqualizedHistImg(img)
+    #testEqualizedHistImg(img)
+    testSubtractImg()
+    #testEdgeImg(img)
+    
