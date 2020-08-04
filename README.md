@@ -51,6 +51,8 @@ clip&gray&diff image
 <img src="images/pyramid.png" width="320" height="240">
 <img src="images/smoothing.png" width="320" height="240">
 <img src="images/binaryThres.png" width="320" height="240">
+<img src="images/cannyEdge.png" width="320" height="240">
+<img src="images/subtract.png" width="320" height="240">
 
 ## artImg
 artImg using DNN parameters
