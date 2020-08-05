@@ -104,7 +104,7 @@ def plotHinstAndDerivative(img):
     plt.show()
     
 def main():
-    file = './res/Lenna.png' #r'./res/obama.jpg'#
+    file = './res/Lenna.png' #r'./res/obama.jpg'# Lenna.png PIA13843.tif
     img = loadImg(file) # IMREAD_GRAYSCALE IMREAD_COLOR
     infoImg(img)
     #showimage(img,autoSize=False)

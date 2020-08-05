@@ -230,8 +230,9 @@ if __name__ == "__main__":
     #img = loadImg(r'./res/shudu2.jpg',0)
     #img = loadImg(r'./res/LennaNoise.png')
     
-    #infoImg(img)
-    
+    infoImg(img)
+    infoImg(grayImg(img))
+    infoImg(loadImg(r'./res/LennaGray.png'))
     #testFlip(img)
     #testGrayImg(img)
     #testDifferImg(img)
@@ -244,6 +245,6 @@ if __name__ == "__main__":
     #testProjection(img)
     #testGarbor(img)
     #testEqualizedHistImg(img)
-    testSubtractImg()
+    #testSubtractImg()
     #testEdgeImg(img)
     

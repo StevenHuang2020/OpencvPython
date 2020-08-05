@@ -24,6 +24,11 @@ def plotImagList(imgList, nameList, title='', gray=False, showticks=True):
             ax.set_xticks([])
     #plt.grid(True)
     plt.tight_layout()
+    
+    # plt.subplots_adjust(top=1,bottom=0,left=0,right=1,hspace=0,wspace=0)
+    # plt.margins(0,0)
+    # plt.savefig('result.png', dpi=300)
+    #plt.savefig('result.png',bbox_inches='tight',dpi=300,pad_inches=0.0)
     plt.show()
 
 def main():

@@ -29,8 +29,9 @@ def loadImg(file,mode=cv2.IMREAD_COLOR):
     return img
 
 def loadGrayImg(file):
-    img = loadImg(file)
-    img = grayImg(img)
+    #img = loadImg(file)
+    #img = grayImg(img)
+    img = loadImg(file,mode=cv2.IMREAD_GRAYSCALE)
     return img
 
 def writeImg(img,filePath):
@@ -522,3 +523,12 @@ def autoThresholdValue(img):
 #https://docs.opencv.org/trunk/da/d22/tutorial_py_canny.html
 def cannyImg(img,threshold1=100,threshold2=200):
     return cv2.Canny(img, threshold1=threshold1, threshold2=threshold2)
+
+def textImg(img,str,loc=None,color=(0,0,0),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale = 1,thickness = 1):
+    H,W = getImgHW(img)
+    newImg = img.copy()
+    textSize = cv2.getTextSize(str, fontFace, fontScale, thickness)
+    print('textSize=',textSize)
+    if loc is None:
+        loc = ((W - textSize[0][0])//2, (H + textSize[0][1])//2)
+    return cv2.putText(newImg, str,loc, fontFace, fontScale, color, thickness, cv2.LINE_AA)
