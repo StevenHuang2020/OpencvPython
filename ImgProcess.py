@@ -225,14 +225,59 @@ def testEdgeImg(img):
     ls.append(canny),nameList.append('canny')
     plotImagList(ls, nameList,gray=True,title='Canny edge Image')
     
+def testImgMask():
+    def processMaskImg(img):
+        H,W = getImgHW(img)
+        chn = getImagChannel(img)
+        cl = np.unique(img)
+        print(cl)
+        colors = np.random.uniform(0, 255, size=(len(cl), chn))
+        print('colors=', colors)
+        for i in range(H):
+            for j in range(W):
+                img[i,j,:] = colors[img[i,j,0]]
+    
+    def maskToOrignimalImg(img,maskImg):
+        H,W = getImgHW(img)
+        chn = getImagChannel(img)
+        #print(img.shape,maskImg.shape)
+        cl = np.unique(maskImg)
+        colors = np.random.uniform(0, 255, size=(len(cl), chn))
+        newImg = img.copy()
+        for i in range(H):
+            for j in range(W):
+                if maskImg[i,j,0] != 0:
+                    newImg[i,j,:] = colors[maskImg[i,j,0]]
+                
+        return newImg
+    
+    
+    img = loadImg(r'./res/FudanPed00001.png')
+    imgMask = loadImg(r'./res/FudanPed00001_mask.png')
+    
+    H,W = getImgHW(img)
+    newH,newW = H//2, W//2    
+    img = resizeImg(img,newW,newH)
+    imgMask = resizeImg(imgMask,newW,newH)
+    
+    maskImg = maskToOrignimalImg(img,imgMask)
+    processMaskImg(imgMask)
+    
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('img')
+    ls.append(imgMask),nameList.append('imgMask')
+    ls.append(maskImg),nameList.append('maskImg')
+    
+    plotImagList(ls, nameList,gray=False,title='Mask Image',showticks=False)
+    
 if __name__ == "__main__":
     img = loadImg(r'./res/Lenna.png')
     #img = loadImg(r'./res/shudu2.jpg',0)
     #img = loadImg(r'./res/LennaNoise.png')
     
-    infoImg(img)
-    infoImg(grayImg(img))
-    infoImg(loadImg(r'./res/LennaGray.png'))
+    # infoImg(img)
+    # infoImg(grayImg(img))
+    # infoImg(loadImg(r'./res/LennaGray.png'))
     #testFlip(img)
     #testGrayImg(img)
     #testDifferImg(img)
@@ -247,4 +292,6 @@ if __name__ == "__main__":
     #testEqualizedHistImg(img)
     #testSubtractImg()
     #testEdgeImg(img)
+    testImgMask()
+    
     

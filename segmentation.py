@@ -41,10 +41,33 @@ def testKMeans2(img):
     ls.append(kmGray),nameList.append('kmGray')
     plotImagList(ls,nameList,title='KMeans Segmentation',showticks=False)
     
-def testBinaryThres(img):
+def testAutoAlgorithm(img):
+    def plotAutoThresh(thres,TList,T1List,T2List):
+        ax = plt.subplot(1,1,1)
+        ax.set_title('Auto binary Threshold')
+        
+        ax.plot(range(len(TList)),TList,label='TList')
+        ax.plot(range(len(T1List)),T1List,label='T1List')
+        ax.plot(range(len(T2List)),T2List,label='T2List')
+
+        ax.hlines(thres,xmin=0, xmax=10,linestyles='dashdot',color='r',label='optimal thresh')
+        ax.set_xlabel('Iters')
+        ax.set_ylabel('Threshold')
+        ax.legend()
+        plt.show()
+    
+    gray = grayImg(img)
+    thres,TList,T1List,T2List = autoThresholdValue(gray,False)
+    print('thres=',thres)
+    print('TList=',len(TList),TList)
+    print('T1List=',len(T1List),T1List)
+    print('T2List=',len(T2List),T2List)
+    plotAutoThresh(thres,TList,T1List,T2List)
+
+def testBinaryThresCompare(img):
     gray = grayImg(img)
     _,_, threshOtsu = calculateOtsu(gray)
-    thresAuto = autoThresholdValue(gray)
+    thresAuto,_,_,_ = autoThresholdValue(gray)
     print('Otsu Thres=',threshOtsu)
     print('Auto Thres=',thresAuto)
     
@@ -68,7 +91,8 @@ def main():
     #testOtsu(img)
     #testKMeans(img)
     #testKMeans2(img)
-    testBinaryThres(img)
+    testAutoAlgorithm(img)
+    #testBinaryThresCompare(img)
     
     
 if __name__ == "__main__":

@@ -47,6 +47,7 @@ clip&gray&diff image
 <img src="images/kMeans.png" width="320" height="240">
 <img src="images/kMeansCV.png" width="320" height="240">
 <img src="images/otsu.png" width="320" height="240">
+<img src="images/autoThres.png" width="320" height="240">
 <img src="images/otsuBinary.png" width="320" height="240">
 <img src="images/pyramid.png" width="320" height="240">
 <img src="images/smoothing.png" width="320" height="240">

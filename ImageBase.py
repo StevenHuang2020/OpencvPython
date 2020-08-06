@@ -478,7 +478,7 @@ def grayProjection(img):
 
     return xPixNums,yPixNums
 
-def autoThresholdValue(img):
+def autoThresholdValue(img,startMean=True):
     def newTValue(hist,T):
         value1 = 0
         num1 = 0
@@ -503,22 +503,31 @@ def autoThresholdValue(img):
         else:
             T2 = value2/num2
 
-        print(T,T1,T2,'Next:',(T1+T2)/2)
-        return (T1+T2)/2
+        #print(T,T1,T2,'Next:',(T1+T2)/2)
+        return (T1+T2)/2,T1,T2
 
     hist= cv2.calcHist([img], [0], None, [256], [0.0,255.0])
     hist = hist.ravel()
-    print('hist=',len(hist),hist)
+    #print('hist=',len(hist),hist)
     
-    T = cv2.mean(img)[0]
+    T = 0
+    if startMean:
+        T = cv2.mean(img)[0]
     print('T0=',T)
+    TList=[]
+    T1List=[]
+    T2List=[]
     while(True):
-        nT = newTValue(hist,T)
+        
+        nT,T1,T2 = newTValue(hist,T)
+        TList.append(T)
+        T1List.append(T1)
+        T2List.append(T2)
         if abs(nT-T)<0.2:
             break
         else:
             T = nT
-    return T
+    return T,TList,T1List,T2List
 
 #https://docs.opencv.org/trunk/da/d22/tutorial_py_canny.html
 def cannyImg(img,threshold1=100,threshold2=200):
