@@ -233,9 +233,11 @@ def testImgMask():
         print(cl)
         colors = np.random.uniform(0, 255, size=(len(cl), chn))
         print('colors=', colors)
+        newImg = np.zeros_like(img)
         for i in range(H):
             for j in range(W):
-                img[i,j,:] = colors[img[i,j,0]]
+                newImg[i,j,:] = colors[img[i,j,0]]
+        return newImg
     
     def maskToOrignimalImg(img,maskImg):
         H,W = getImgHW(img)
@@ -251,27 +253,36 @@ def testImgMask():
                 
         return newImg
     
+    base = r'E:\opencv\project\PedSegmentation\PennFudanMaskAugmentation\res\PennFudanPed\newImages'
+    file = r'./res/FudanPed00001.png'
+    mask = r'./res/FudanPed00001_mask.png'
     
-    img = loadImg(r'./res/FudanPed00001.png')
-    imgMask = loadImg(r'./res/FudanPed00001_mask.png')
+    # file = base + r'\newMaskFlipping\FudanPed00011_flip.png'
+    # mask = base + r'\newMaskFlippingMask\FudanPed00011_flip_mask.png'
+    
+    # file = base + r'\newMaskScaling\FudanPed00001_scale_1.2894736842105263.png'
+    # mask = base + r'\newMaskScalingMask\FudanPed00001_scale_1.2894736842105263_mask.png'
+    
+    img = loadImg(file)
+    imgMask = loadImg(mask)
     
     H,W = getImgHW(img)
     newH,newW = H//2, W//2    
     img = resizeImg(img,newW,newH)
     imgMask = resizeImg(imgMask,newW,newH)
-    
+    imgMaskColor = processMaskImg(imgMask)
     maskImg = maskToOrignimalImg(img,imgMask)
-    processMaskImg(imgMask)
     
     ls,nameList = [],[]
     ls.append(img),nameList.append('img')
     ls.append(imgMask),nameList.append('imgMask')
+    ls.append(imgMaskColor),nameList.append('imgMaskColor')
     ls.append(maskImg),nameList.append('maskImg')
     
     plotImagList(ls, nameList,gray=False,title='Mask Image',showticks=False)
     
 if __name__ == "__main__":
-    img = loadImg(r'./res/Lenna.png')
+    img = loadImg(r'./res/0label.png') #Lenna.png
     #img = loadImg(r'./res/shudu2.jpg',0)
     #img = loadImg(r'./res/LennaNoise.png')
     
@@ -291,7 +302,7 @@ if __name__ == "__main__":
     #testGarbor(img)
     #testEqualizedHistImg(img)
     #testSubtractImg()
-    #testEdgeImg(img)
-    testImgMask()
+    testEdgeImg(img)
+    #testImgMask()
     
     

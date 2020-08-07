@@ -42,16 +42,14 @@ clip&gray&diff image
 <img src="images/diff4img.png" width="320" height="240">
 <img src="images/garbor.png" width="320" height="240">
 <img src="images/gradientGray.png" width="320" height="240">
-<img src="images/gray.png" width="320" height="240">
 <img src="images/grsdient.png" width="320" height="240">
 <img src="images/kMeans.png" width="320" height="240">
 <img src="images/kMeansCV.png" width="320" height="240">
 <img src="images/otsu.png" width="320" height="240">
 <img src="images/autoThres.png" width="320" height="240">
-<img src="images/otsuBinary.png" width="320" height="240">
+<img src="images/binaryThres.png" width="320" height="240">
 <img src="images/pyramid.png" width="320" height="240">
 <img src="images/smoothing.png" width="320" height="240">
-<img src="images/binaryThres.png" width="320" height="240">
 <img src="images/cannyEdge.png" width="320" height="240">
 <img src="images/subtract.png" width="320" height="240">
 

@@ -46,9 +46,9 @@ def testAutoAlgorithm(img):
         ax = plt.subplot(1,1,1)
         ax.set_title('Auto binary Threshold')
         
-        ax.plot(range(len(TList)),TList,label='TList')
-        ax.plot(range(len(T1List)),T1List,label='T1List')
-        ax.plot(range(len(T2List)),T2List,label='T2List')
+        ax.plot(range(len(TList)),TList,label='T')
+        ax.plot(range(len(T1List)),T1List,label='T1')
+        ax.plot(range(len(T2List)),T2List,label='T2')
 
         ax.hlines(thres,xmin=0, xmax=10,linestyles='dashdot',color='r',label='optimal thresh')
         ax.set_xlabel('Iters')
