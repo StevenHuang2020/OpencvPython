@@ -41,7 +41,9 @@ def infoImg(img,str='image:'):
     return print(str,'shape:',img.shape,'size:',img.size,'dims=',img.ndim,'dtype:',img.dtype)
 
 def grayImg(img):
-    return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    if getImagChannel(img) == 3:
+        return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    return img
 
 def getImagChannel(img):
     if img.ndim == 3: #color r g b channel

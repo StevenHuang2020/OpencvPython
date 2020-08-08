@@ -302,7 +302,7 @@ if __name__ == "__main__":
     #testGarbor(img)
     #testEqualizedHistImg(img)
     #testSubtractImg()
-    testEdgeImg(img)
-    #testImgMask()
+    #testEdgeImg(img)
+    testImgMask()
     
     

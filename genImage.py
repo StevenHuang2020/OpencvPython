@@ -33,15 +33,14 @@ def addBackgroundGrayImg(img,step=6):
     for j in range(0,W,step):
         img[:,j]=0 #black
         
-def getTextImgStr(str,H=60,W=100):
+def getTextImgStr(str,H=60,W=100,font=cv2.FONT_HERSHEY_SIMPLEX):
     img = genImg(H,W,1)
 
     #print(img)
-    imgText = textImg(img,str,fontScale=1)
-    bImgText = binaryImage(imgText,100)
-    infoImg(bImgText)
+    imgText = textImg(img,str,fontFace=font,fontScale=1)
+    infoImg(imgText)
     
-    textArt = getBinaryTextImgStr(reverseImg(bImgText))
+    textArt = getBinaryTextImgStr(reverseImg(imgText),char=' ',elseChar='#')
     #print(textArt)
     return textArt
 
@@ -64,8 +63,9 @@ def generateArtText(str='Hello'): #get text from binary text image
     ls.append(imgArtText),nameList.append('imgArtText')
     plotImagList(ls, nameList,gray=True,title='Art Text Image')
     
-    
-def getBinaryTextImgStr(img,char='#'):
+def getBinaryTextImgStr(img,thresh=100,char='#',elseChar=' '):
+    img = grayImg(img)
+    img = binaryImage(img,thresh)
     H,W = getImgHW(img)
     
     def finTextLoc(img):
@@ -102,7 +102,7 @@ def getBinaryTextImgStr(img,char='#'):
         for i in range(hStart,hStop): 
             for j in range(wStart,wStop):
                 if img[i,j]: 
-                    lines.append(' ')
+                    lines.append(elseChar)
                 else: 
                     lines.append(char)
             lines.append('\n')
@@ -111,7 +111,7 @@ def getBinaryTextImgStr(img,char='#'):
         for i in range(H): 
             for j in range(W):
                 if img[i,j]: 
-                    lines.append(' ')
+                    lines.append(elseChar)
                 else: 
                     lines.append(char)
             lines.append('\n')
@@ -119,8 +119,6 @@ def getBinaryTextImgStr(img,char='#'):
     
 def getGrayImageToStr(img):
     img = grayImg(img)
-    H,W = getImgHW(img)
-    img = resizeImg(img,W//2,H//2)
     H,W = getImgHW(img)
     print(H,W)
     ascii_char = list("$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. ")  
@@ -142,8 +140,7 @@ def getGrayImageToStr(img):
     print(len(txt),len(txt)/H)
     return txt
 
-def getImageCharatStr():
-    img = loadImg(r'.\res\my.png')
+def getImageCharatStr(img):
     strPhoto = getGrayImageToStr(img)
     #print(strPhoto)
         
@@ -204,9 +201,32 @@ def getImageCharatStr():
     ls.append(imgArtText),nameList.append('')
     plotImagList(ls, nameList,gray=True,showticks=False)
     
+def genMyPhotoStr(img):
+    text='Hi,there!'
+    str = getTextImgStr(text,H=30,W=180,font=cv2.FONT_HERSHEY_COMPLEX_SMALL|cv2.FONT_ITALIC) #|cv2.FONT_ITALIC
+    print(str)
+    return
+
+    H,W = getImgHW(img)
+    img = resizeImg(img,W//9,H//9)
+    #img = grayImg(img)
+    img = cannyImg(img)
+    infoImg(img)
+    strPhoto = getGrayImageToStr(img)
+    print(strPhoto)
+    
+    strPhoto = getBinaryTextImgStr(img, thresh=80, char='.',elseChar='#')
+    print(strPhoto)
+    
 def main():
+    img = loadImg(r'.\res\my.png')
     #generateArtText()
-    getImageCharatStr()
+        
+    #H,W = getImgHW(img)
+    #img = resizeImg(img,W//4,H//4)
+    infoImg(img)
+    #getImageCharatStr(img)
+    genMyPhotoStr(img)
     
 if __name__=='__main__':
     main()
