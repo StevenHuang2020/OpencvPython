@@ -256,6 +256,8 @@ def testImgMask():
     base = r'E:\opencv\project\PedSegmentation\PennFudanMaskAugmentation\res\PennFudanPed\newImages'
     file = r'./res/FudanPed00001.png'
     mask = r'./res/FudanPed00001_mask.png'
+    file = r'.\PedSegmentation\res\PennFudanPed\newImages\trainImages\trainPNGImage\FudanPed00019_0_11_363_438.png'
+    mask = r'.\PedSegmentation\res\PennFudanPed\newImages\trainImages\trainPNGImageMask\FudanPed00019_0_11_363_438_mask.png'
     
     # file = base + r'\newMaskFlipping\FudanPed00011_flip.png'
     # mask = base + r'\newMaskFlippingMask\FudanPed00011_flip_mask.png'
@@ -282,11 +284,12 @@ def testImgMask():
     plotImagList(ls, nameList,gray=False,title='Mask Image',showticks=False)
     
 if __name__ == "__main__":
-    img = loadImg(r'./res/0label.png') #Lenna.png
+    img = loadImg(r'./res/Lenna.png') #Lenna.png
     #img = loadImg(r'./res/shudu2.jpg',0)
     #img = loadImg(r'./res/LennaNoise.png')
-    
-    # infoImg(img)
+    #img = loadGrayImg(r'./res/LennaGray.png') #Lenna.png
+   
+    #infoImg(img)
     # infoImg(grayImg(img))
     # infoImg(loadImg(r'./res/LennaGray.png'))
     #testFlip(img)
@@ -303,6 +306,6 @@ if __name__ == "__main__":
     #testEqualizedHistImg(img)
     #testSubtractImg()
     #testEdgeImg(img)
-    testImgMask()
+    #testImgMask()
     
     

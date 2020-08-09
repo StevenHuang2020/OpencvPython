@@ -29,8 +29,6 @@ def loadImg(file,mode=cv2.IMREAD_COLOR):
     return img
 
 def loadGrayImg(file):
-    #img = loadImg(file)
-    #img = grayImg(img)
     img = loadImg(file,mode=cv2.IMREAD_GRAYSCALE)
     return img
 
@@ -51,8 +49,7 @@ def getImagChannel(img):
     return 1  #only one channel
 
 def resizeImg(img,NewW,NewH):
-    rimg = cv2.resize(img, (NewW,NewH), interpolation=cv2.INTER_CUBIC) #INTER_CUBIC INTER_NEAREST INTER_LINEAR INTER_AREA
-    return rimg
+    return cv2.resize(img, (NewW,NewH), interpolation=cv2.INTER_CUBIC) #INTER_CUBIC INTER_NEAREST INTER_LINEAR INTER_AREA
 
 def showimage(img,str='image',autoSize=False):
     flag = cv2.WINDOW_NORMAL
