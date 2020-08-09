@@ -53,6 +53,13 @@ clip&gray&diff image
 <img src="images/cannyEdge.png" width="320" height="240">
 <img src="images/subtract.png" width="320" height="240">
 
+video analysis
+<br/>
+<img src="images/LKopticalfb.png" width="320" height="240">
+<img src="images/LKopticalfbsv.png" width="320" height="240">
+<img src="images/opticalfb.png" width="320" height="240">
+<img src="images/opticalfbsv.png" width="320" height="240">
+
 ## artImg
 artImg using DNN parameters
 <br/>
