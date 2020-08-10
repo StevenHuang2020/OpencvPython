@@ -41,14 +41,20 @@ def plotImagHistListImg(imgList,title=''):
     plt.tight_layout()
     plt.show()
 
-def plotImgHist(img):
+def plotImgHist(img,bar=False):
     color = ('b','g','r')
     hists = getImgHist(img)
     cn = 0
-    for i in hists:
-        plt.plot(i,color = color[cn])
-        plt.xlim([0,256])
-        cn+=1
+    if bar: #bar chart
+        for i in hists:
+            #print('len=',type(i),i.shape,len(i))
+            plt.bar(np.arange(len(i)),i.ravel(),color = color[cn])
+            cn+=1
+    else: #plot
+        for i in hists:
+            plt.plot(i,color = color[cn])
+            #plt.xlim([0,256])
+            cn+=1
 
 def plotImgHist256Img(img):
     #color = ('b','g','r')
@@ -65,14 +71,18 @@ def plotImagAndHist4(img):  #must color img
     imgList.append(imgGray)
     return plotImagHistListImg(imgList,'Image&Gray Histogram')
 
-def plotImagAndHist(img):
-    plt.subplot(1, 2, 1)    
-    plt.imshow(img)
-
+def plotImagAndHist(img,gray=False,title='',grid=False,bar=False):
+    plt.figure().suptitle(title, fontsize="x-large")
+    plt.subplot(1, 2, 1)   
+    if gray: 
+        plt.imshow(img,cmap='gray')
+    else:
+        plt.imshow(img)
+        
     plt.subplot(1, 2, 2)
-    plotImgHist(img)
+    plotImgHist(img,bar=bar)
 
-    plt.grid(True)
+    plt.grid(grid)
     plt.tight_layout()
     plt.show()
 

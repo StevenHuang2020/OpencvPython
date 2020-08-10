@@ -5,6 +5,11 @@ import matplotlib.pyplot as plt
 from common import getRowAndColumn
 from ImageBase import *
 
+def plotImg2(img,name='', title='', gray=False, showticks=True):
+    ls,nameList = [],[]
+    ls.append(img),nameList.append(name)
+    plotImagList(ls, nameList, title=title, gray=gray, showticks=showticks)
+    
 def plotImagList(imgList, nameList, title='', gray=False, showticks=True):
     nImg = len(imgList)
     nRow,nColumn = getRowAndColumn(nImg)

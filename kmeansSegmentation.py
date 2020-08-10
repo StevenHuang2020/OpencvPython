@@ -29,13 +29,13 @@ def KMeansSegmentation(img,k=8):
     res = center[label.flatten()]
     return res.reshape((img.shape)),center
 
-def KMeansSegmentation2(img):
+def KMeansSegmentation2(img,k=2):
     chn = getImagChannel(img)
     H,W = getImgHW(img)
     Z = getImageData(img)
     print(Z.shape)
     #k = KMeansModelTrain('image', Z)
-    k, centroids, labels = KMeansModel(3, Z)
+    k, centroids, labels = KMeansModel(k, Z)
     
     print('centroids=',centroids)
     labels = labels.reshape((H,W))
