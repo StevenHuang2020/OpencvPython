@@ -141,12 +141,16 @@ def binaryImage(img,thresH):
     """img must be gray"""
     H, W = getImgHW(img)
     newImage = img.copy()
-    for i in range(H):
-        for j in range(W):
-            if newImage[i,j] < thresH:
-                newImage[i,j] = 0
-            else:
-                newImage[i,j] = 255
+    
+    if 1:
+        newImage = np.where(newImage<thresH,0,255)
+    else:
+        for i in range(H):
+            for j in range(W):
+                if newImage[i,j] < thresH:
+                    newImage[i,j] = 0
+                else:
+                    newImage[i,j] = 255
 
     return newImage
 
@@ -532,6 +536,9 @@ def autoThresholdValue(img,startMean=True):
 def cannyImg(img,threshold1=100,threshold2=200):
     return cv2.Canny(img, threshold1=threshold1, threshold2=threshold2)
 
+def sobelImg(img,scale=1,delta=0,ddepth = cv2.CV_16S, ksize=3):
+    return cv2.Sobel(img, ddepth, 1, 0, ksize=ksize, scale=scale, delta=delta, borderType=cv.BORDER_DEFAULT)
+ 
 def textImg(img,str,loc=None,color=(0,0,0),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale = 1,thickness = 1):
     H,W = getImgHW(img)
     newImg = img.copy()

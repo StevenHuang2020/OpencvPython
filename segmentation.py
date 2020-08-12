@@ -38,7 +38,7 @@ def testKMeansSciKit(img,gray=False): #sci-kit learn kmeans
     if gray:
         img = grayImg(img)
     
-    kAll=[2,3,4]
+    kAll=[2,3,5]
     
     ls,nameList = [],[]
     ls.append(img),nameList.append('Original')
@@ -91,6 +91,20 @@ def testAdaptThreshImg(img):
     adaGray = thresHoldModel(gray)
     plotImg(adaGray, gray=True)
     
+def testEdgeSegmentation(img):
+    from scipy import ndimage as ndi
+    
+    canny = cannyImg(img)
+    fill = ndi.binary_fill_holes(canny)
+    
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('Original')
+    ls.append(canny),nameList.append('Canny edges')
+    ls.append(fill),nameList.append('Filled')
+    
+    plotImagList(ls, nameList,gray=True,title='Edge segmentation')
+    
+    
 def testBinaryThresCompare(img):
     gray = grayImg(img)
     _,_, threshOtsu = calculateOtsu(gray)
@@ -105,11 +119,11 @@ def testBinaryThresCompare(img):
     ls,nameList = [],[]
     #ls.append(img),nameList.append('Original')
     ls.append(gray),nameList.append('Original')
-    ls.append(bOtsu),nameList.append('Otsu\'s Method ' + str(round(threshOtsu,3)))
-    ls.append(bAuto),nameList.append('Balanced ' + str(round(thresAuto,3)))
-    ls.append(adaptThres),nameList.append('adapative local thres')
+    ls.append(bOtsu),nameList.append('Otsu\'s Method ' + str(round(threshOtsu,2)))
+    ls.append(bAuto),nameList.append('Balanced ' + str(round(thresAuto,2)))
+    ls.append(adaptThres),nameList.append('Adapative threshold')
     
-    plotImagList(ls,nameList,title='Threshold method',gray=True,showticks=False)
+    plotImagList(ls,nameList,title='',gray=True,showticks=False) #title='Thresholding method'
     
 def argCmdParse():
     parser = argparse.ArgumentParser()
@@ -123,22 +137,24 @@ def main():
     #img = loadImg(r'.\res\ab.png') #otsus_algorithm.jpg Lenna.png
     #return plotImg2(img)
     
-    img = gaussianBlurImg(img,ksize=3)
-    #img = grayImg(img)
+    #img = gaussianBlurImg(img,ksize=3)
+    img = grayImg(img)
     #plotImagAndHist(img,title='Histogram',gray=True,bar=True)
     #plotImagAndHist(binaryImage(img,110),title='Binary Lenna  & Histogram',gray=True)
+    
+    #plotImg2(binaryImage(img,105),gray=True,title='Thres=105')
     
     #print(np.arange(1,10)) #1,2,3,....,9
     #plotImgHist(img),plt.show()
     
     #testOtsu(img)
-    testKMeans(img)
+    #testKMeans(img)
     #testKMeans2(img)
     #testKMeansSciKit(img,gray=False)
     #testAutoAlgorithm(img)
     #testAdaptThreshImg(img)
     #testBinaryThresCompare(img)
-    
+    testEdgeSegmentation(img)
     
 if __name__ == "__main__":
     main()

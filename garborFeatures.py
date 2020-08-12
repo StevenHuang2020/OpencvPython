@@ -11,7 +11,7 @@ def garborFeature(img, ksize=5):#create different feature images
     for theta in range(2):
         theta = theta/4.0*np.pi
         for sigma in (1,3):
-            for lamda in np.range(0, np.pi, np.pi/4):
+            for lamda in np.arange(0, np.pi, np.pi/4):
                 for gamma in (0.05, 0.5):
                     gabor_label= 'Gabor' + str(num)
                     if 1:

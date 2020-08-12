@@ -53,6 +53,10 @@ clip&gray&diff image
 <img src="images/cannyEdge.png" width="320" height="240">
 <img src="images/subtract.png" width="320" height="240">
 
+<img src="images/filter1.png" width="320" height="240">
+<img src="images/filter2.png" width="320" height="240">
+<img src="images/filter3.png" width="320" height="240">
+
 video analysis
 <br/>
 <img src="images/LKopticalfb.png" width="320" height="240">
