@@ -64,14 +64,6 @@ video analysis
 <img src="images/opticalfb.png" width="320" height="240">
 <img src="images/opticalhsv.png" width="320" height="240">
 
-## artImg
-artImg using DNN parameters
-<br/>
-<img src="images/Lenna.png" width="160" height="120">
-<img src="images/art/a.png" width="160" height="120">
-<img src="images/art/b.png" width="160" height="120">
-<br/>
-<img src="images/art/c.png" width="160" height="120">
-<img src="images/art/d.png" width="160" height="120">
-<img src="images/art/e.png" width="160" height="120">
-<br/>
+MLImageSegmentation
+<img src="MLImageSegmentation/images/Figure_1.png" width="320" height="240">
+<img src="MLImageSegmentation/images/Figure_2.png" width="320" height="240">
