@@ -308,7 +308,7 @@ if __name__ == "__main__":
     #testDifferImg(img)
     #testDiffer2Img(img)
     #testDiffer3Img(img)
-    #print('mean,deviation=',meanImg(img),deviationImg(img))
+    #print('mean,varianceImg=',meanImg(img),varianceImg(img))
     #testPyramid(img)
     #testSmoothing(img)
     #testNoiseImg(img)

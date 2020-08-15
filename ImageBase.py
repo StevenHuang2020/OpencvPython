@@ -406,14 +406,14 @@ def meanImg(img):
     #print('mean = ',mean)
     return np.mean(img)
 
-def deviationImg(img):
+def varianceImg(img):
     H, W = getImgHW(img)
     chn = getImagChannel(img)
     mean = meanImg(img)
     if 1:
-        return np.sum((img[:,:,:]-mean)**2)/(H*W*chn)
+        return np.sqrt(np.sum((img-mean)**2)/(H*W*chn))
     else:
-        variance = np.sum(img[:,:,:]**2)/(H*W*chn)
+        variance = np.sum(img**2)/(H*W*chn)
         return variance - mean**2
     
 def pyramidImg(img): #2x2-->1

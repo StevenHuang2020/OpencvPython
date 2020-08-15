@@ -127,8 +127,12 @@ def main():
     #plotImagAndHist(img)
     #plotImagAndHist4(img)
     #plotEqHist4(img)
-    plotHinstAndDerivative(img)
+    #plotHinstAndDerivative(img)
     
-
+    lennaCEq = equalizedHist(img)
+    lennaGEq = equalizedHist(grayImg(img))
+    writeImg(lennaCEq,r'.\res\LennaCEq.png')
+    writeImg(lennaGEq,r'.\res\LennaGEq.png')
+    
 if __name__=='__main__':
     main()
