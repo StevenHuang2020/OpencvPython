@@ -50,6 +50,9 @@ clip&gray&diff image <br/>
 <img src="images/filter1.png" width="320" height="240">
 <img src="images/filter2.png" width="320" height="240">
 <img src="images/filter3.png" width="320" height="240">
+<img src="images/brightness1.png" width="320" height="240">
+<img src="images/brightness2.png" width="320" height="240">
+<img src="images/gammCorrect.png" width="320" height="240">
 <br/>
 
 video analysis <br/>

@@ -17,15 +17,17 @@ def changeRbg2Bgr(img): #when save
         img = cv2.merge([b,g,r])
     return img
 
-def loadImg(file,mode=cv2.IMREAD_COLOR):
+def loadImg(file, mode=cv2.IMREAD_COLOR, toRgb=True):
     #mode = cv2.IMREAD_COLOR cv2.IMREAD_GRAYSCALE cv2.IMREAD_UNCHANGED
     try:
         img = cv2.imread(file,mode)
     except:
         print("Load image error,file=",file)
-        
-    if getImagChannel(img) == 3:
-        img = changeBgr2Rbg(img)
+    
+    assert(img is not None)
+    if toRgb:
+        if getImagChannel(img) == 3:
+            img = changeBgr2Rbg(img)
     return img
 
 def loadGrayImg(file):
@@ -49,8 +51,11 @@ def getImagChannel(img):
     return 1  #only one channel
 
 def resizeImg(img,NewW,NewH):
-    return cv2.resize(img, (NewW,NewH), interpolation=cv2.INTER_CUBIC) #INTER_CUBIC INTER_NEAREST INTER_LINEAR INTER_AREA
-
+    try:
+        return cv2.resize(img, (NewW,NewH), interpolation=cv2.INTER_CUBIC) #INTER_CUBIC INTER_NEAREST INTER_LINEAR INTER_AREA
+    except:
+        print('img.shape,newW,newH',img.shape,NewW,NewH)
+        
 def showimage(img,str='image',autoSize=False):
     flag = cv2.WINDOW_NORMAL
     if autoSize:
@@ -547,3 +552,40 @@ def textImg(img,str,loc=None,color=(0,0,0),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fon
     if loc is None:
         loc = ((W - textSize[0][0])//2, (H + textSize[0][1])//2)
     return cv2.putText(newImg, str,loc, fontFace, fontScale, color, thickness, cv2.LINE_AA)
+
+def jointImage(img1,img2,hori=True):
+    H1,W1 = getImgHW(img1)
+    H2,W2 = getImgHW(img2)
+    if hori:
+        H = np.max(H1,H2)
+        img = np.zeros((H, W1+W2, 3),dtype=np.uint8)
+        img[:H1, 0:W1] = img1
+        img[:H2, W1:] = img2
+    else:
+        W = np.max(W1,W2)
+        img = np.zeros((H1+H2, W, 3),dtype=np.uint8)
+        img[:H1, 0:W1] = img1
+        img[H1:, 0:W2] = img2
+    return img
+
+def rectangleImg(img,startPt,stopPt,color=(0, 0, 255),thickness=2):
+    #return cv2.rectangle(img=img, pt1=startPt, pt2=stopPt, color=color, thickness=thickness) 
+    return cv2.rectangle(img, startPt, stopPt, color, thickness=2)
+
+def adjustBrightnessAndContrast(img,alpha=0.1,beta=100):
+    """g(x) = alpha * f(x) + beta, alpha(0.1~3) beta(0~100)"""
+    if 1:
+        new_image = cv2.convertScaleAbs(img, alpha=alpha, beta=beta)
+    else:
+        new_image = np.zeros_like(img)
+        for y in range(img.shape[0]):
+            for x in range(img.shape[1]):
+                for c in range(img.shape[2]):
+                    new_image[y,x,c] = np.clip(alpha*img[y,x,c] + beta, 0, 255)
+    return new_image
+
+def GammaCorrection(img,gamma=0.5): #gama = [0.04~25]
+    lookUpTable = np.empty((1,256), np.uint8)
+    for i in range(256):
+        lookUpTable[0,i] = np.clip(pow(i / 255.0, gamma) * 255.0, 0, 255)
+    return cv2.LUT(img, lookUpTable)

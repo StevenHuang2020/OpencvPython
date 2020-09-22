@@ -1,5 +1,4 @@
 #python3
-#%%
 import numpy as np
 from ImageBase import *
 from mainImagePlot import plotImagList
@@ -225,7 +224,7 @@ def testEdgeImg(img):
     ls.append(canny),nameList.append('canny')
     plotImagList(ls, nameList,gray=True,title='Canny edge Image')
     
-def testImgMask():
+def testImgSegMask():
     def processMaskImg(img):
         H,W = getImgHW(img)
         chn = getImagChannel(img)
@@ -293,6 +292,34 @@ def test():
     print(cv2.CV_8UC3)
     print(cv2.CV_8SC3)
     
+def testBrightnessAndContrast(img):
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('Orignal')
+    
+    #test1
+    # beta = 50
+    # for alpha in np.linspace(0.1,2,5):
+    #     ls.append(adjustBrightnessAndContrast(img,alpha,beta)),nameList.append('alpha,beta='+str(alpha)+','+str(beta))
+    
+    # plotImagList(ls, nameList,gray=False,title='Brightness Image',showticks=False)
+    
+    #test2
+    alpha = 0.6
+    for beta in np.linspace(1,200,5):
+        ls.append(adjustBrightnessAndContrast(img,alpha,beta)),nameList.append('alpha,beta='+str(alpha)+','+str(beta))
+    
+    plotImagList(ls, nameList,gray=False,title='Brightness2 Image',showticks=False)
+    
+def testGammaCorrection(img):
+    ls,nameList = [],[]
+    ls.append(img),nameList.append('Orignal')
+    
+    for gamma in np.linspace(0.05,6,11):
+        gamma = gamma.round(2)
+        ls.append(GammaCorrection(img,gamma)),nameList.append('gamma='+str(gamma))
+    
+    plotImagList(ls, nameList,gray=False,title='Gamma Correction Image',showticks=False)
+    
 if __name__ == "__main__":
     img = loadImg(r'./res/Lenna.png') #Lenna.png
     #img = loadImg(r'./res/shudu2.jpg',0)
@@ -317,6 +344,6 @@ if __name__ == "__main__":
     #testEqualizedHistImg(img)
     #testSubtractImg()
     #testEdgeImg(img)
-    testImgMask()
-    
-    
+    #testImgSegMask()
+    #testBrightnessAndContrast(img)
+    testGammaCorrection(img)
