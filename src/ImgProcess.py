@@ -320,6 +320,22 @@ def testGammaCorrection(img):
     
     plotImagList(ls, nameList,gray=False,title='Gamma Correction Image',showticks=False)
     
+def testImages():
+    base = r'.\images'
+    
+    f1 = base + '\\' + '000001.jpg'
+    f2 = base + '\\' + '000030.jpg'
+    f3 = base + '\\' + '000090.jpg'
+    f4 = base + '\\' + '000120.jpg'
+    
+    ls,nameList = [],[]
+    ls.append(loadImg(f1)), nameList.append('t')
+    ls.append(loadImg(f2)), nameList.append('t+1')
+    ls.append(loadImg(f3)), nameList.append('t+3')
+    ls.append(loadImg(f4)), nameList.append('t+4')
+    plotImagList(ls, nameList, gray=False, title='',showticks=False)
+    
+    
 if __name__ == "__main__":
     img = loadImg(r'./res/Lenna.png') #Lenna.png
     #img = loadImg(r'./res/shudu2.jpg',0)
@@ -346,4 +362,5 @@ if __name__ == "__main__":
     #testEdgeImg(img)
     #testImgSegMask()
     #testBrightnessAndContrast(img)
-    testGammaCorrection(img)
+    #testGammaCorrection(img)
+    testImages()

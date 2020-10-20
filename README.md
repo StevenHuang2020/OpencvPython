@@ -28,6 +28,10 @@ mosaicImg.py <br/>
 dftImg.py <br/>
 <img src="images/dft.png" width="320" height="240">
 
+mosaicPhoto.py <br/>
+<img src="images/Lena_mos_2.png" width="320" height="240">
+<img src="images/Lena_mos_8.png" width="320" height="240">
+
 clip&gray&diff image <br/>
 <img src="images/clip.png" width="320" height="240">
 <img src="images/gray.png" width="320" height="240">
