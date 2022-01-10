@@ -1,12 +1,15 @@
 import cv2
-import numpy as np
+# import numpy as np
 
-gPath='.//res//'
+gPath = './/res//'
+
+
 def openCap():
     cap = cv2.VideoCapture(0)
-    #getCap(cap)
+    # getCap(cap)
     return cap
-    
+
+
 def cap():
     cap = openCap()
     while(True):
@@ -15,29 +18,30 @@ def cap():
         # Our operations on the frame come here
 
         show = frame
-        #show = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # show = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # Display the resulting frame
-        cv2.imshow('frame',show)
+        cv2.imshow('frame', show)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()
     cv2.destroyAllWindows()
 
+
 def capSave():
     cap = openCap()
     # Define the codec and create VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')#opncv 3.0
-    #fourcc = cv2.cv.CV_FOURCC('X','V','I','D')
-    
-    out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')  # opncv 3.0
+    # fourcc = cv2.cv.CV_FOURCC('X','V','I','D')
+
+    out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
     while(cap.isOpened()):
         ret, frame = cap.read()
-        if ret==True:
-            #frame = cv2.flip(frame,0)#fanzhuan
+        if ret is True:
+            # frame = cv2.flip(frame,0)#fanzhuan
             # write the flipped frame
             out.write(frame)
-            cv2.imshow('frame',frame)
+            cv2.imshow('frame', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
         else:
@@ -46,6 +50,7 @@ def capSave():
     cap.release()
     out.release()
     cv2.destroyAllWindows()
+
 
 def getCap(cap):
     '''
@@ -74,57 +79,60 @@ def getCap(cap):
     '''
 
     for i in range(19):
-        print(i,cap.get(i))
-    pass
-    #ret = cap.set(3,320)
-    #ret = cap.set(4,240)
-    
+        print(i, cap.get(i))
+
+    # ret = cap.set(3,320)
+    # ret = cap.set(4,240)
+
+
 def setCap(cap):
     pass
-    
+
+
 def playVideoFile(file):
     cap = cv2.VideoCapture(file)
     print(cap.isOpened())
     while(cap.isOpened()):
         ret, frame = cap.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        cv2.imshow('frame',gray)
+        cv2.imshow('frame', gray)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()
     cv2.destroyAllWindows()
 
-def capSetExposure(): #baoguang shezhi
+
+def capSetExposure():  # baoguang shezhi
     cap = openCap()
     proID = 16
-    print('before exposure=',cap.get(proID)) #cv2.CV_CAP_PROP_EXPOSURE
-    exposure=0
+    print('before exposure=', cap.get(proID))  # cv2.CV_CAP_PROP_EXPOSURE
+    exposure = 0
     while(True):
-        exposure+=1
-        #exposure %=0
+        exposure += 1
+        # exposure %=0
 
-        exp = exposure/10.0-10
-        ret = cap.set(proID,exp)
+        exp = exposure / 10.0 - 10
+        ret = cap.set(proID, exp)
 
         # Capture frame-by-frame
         ret, frame = cap.read()
         # Our operations on the frame come here
-        cv2.putText(frame,'Exposure:%d,ac:%d'%(exp,cap.get(proID)),(20, 30), 3, 1.0, (255, 0, 0))
+        cv2.putText(frame, 'Exposure:%d,ac:%d' % (exp, cap.get(proID)), (20, 30), 3, 1.0, (255, 0, 0))
         show = frame
-        #show = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # show = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # Display the resulting frame
-        cv2.imshow('frame',show)
+        cv2.imshow('frame', show)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()
     cv2.destroyAllWindows()
 
+
 if __name__ == "__main__":
-    #cap()
+    # cap()
+    # file = gPath+'FriendsS01E01.mkv' #"friends.mp4" #'H095428-33.avi'
+    # playVideoFile(file)
 
-    #file = gPath+'FriendsS01E01.mkv' #"friends.mp4" #'H095428-33.avi'
-    #playVideoFile(file)
-
-    #capSave()
+    # capSave()
     capSetExposure()

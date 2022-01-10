@@ -1,31 +1,34 @@
-#python3
-#Steven image threshold modoule
-import cv2 #pip install opencv-python
+# python3
+# Steven image threshold modoule
+import cv2
 import matplotlib.pyplot as plt
-from ImageBase import *
+from ImageBase import loadImg, binaryImage2, thresHoldModel
+from ImageBase import thresHoldImage, OtsuMethodThresHold
 from mainImagePlot import plotImagList
 
-def showimage(img,str='image',autoSize=False):
+
+def showimage(img, str='image', autoSize=False):
     flag = cv2.WINDOW_NORMAL
     if autoSize:
         flag = cv2.WINDOW_AUTOSIZE
 
-    cv2.namedWindow(str, flag) #cv2.WINDOW_NORMAL)
-    cv2.imshow(str,img)
-   
+    cv2.namedWindow(str, flag)  # cv2.WINDOW_NORMAL)
+    cv2.imshow(str, img)
+
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
+
 def main():
-    file = './res/Lenna.png' #r'./res/obama.jpg'#
-    img = loadImg(file,mode=cv2.IMREAD_GRAYSCALE) # IMREAD_GRAYSCALE IMREAD_COLOR
-    #infoImg()
-    img1 = binaryImage2(img,thresHMin=50,thresHMax=150)
-    img2 = binaryImage2(img,thresHMin=50,thresHMax=100)
-    img3 = thresHoldImage(img,mode = cv2.THRESH_BINARY)
+    file = './res/Lenna.png'  # r'./res/obama.jpg'#
+    img = loadImg(file, mode=cv2.IMREAD_GRAYSCALE)  # IMREAD_GRAYSCALE IMREAD_COLOR
+    # infoImg()
+    img1 = binaryImage2(img, thresHMin=50, thresHMax=150)
+    img2 = binaryImage2(img, thresHMin=50, thresHMax=100)
+    img3 = thresHoldImage(img, mode=cv2.THRESH_BINARY)
     img4 = OtsuMethodThresHold(img)
-    img5 = thresHoldModel(img,mode = cv2.ADAPTIVE_THRESH_MEAN_C)
-    img6 = thresHoldModel(img,mode = cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
+    img5 = thresHoldModel(img, mode=cv2.ADAPTIVE_THRESH_MEAN_C)
+    img6 = thresHoldModel(img, mode=cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
 
     imgList = []
     nameList = []
@@ -36,8 +39,8 @@ def main():
     imgList.append(img4), nameList.append('OtsuMethod')
     imgList.append(img5), nameList.append('thr_Mean')
     imgList.append(img6), nameList.append('thr_Gaussian')
-    plotImagList(imgList,nameList) 
+    plotImagList(imgList, nameList)
 
-    
-if __name__=='__main__':
+
+if __name__ == '__main__':
     main()
